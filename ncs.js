@@ -7,20 +7,20 @@ if (typeof NCSload !== 'undefined'){
 else{
     var NCSload = true;
     // Temp method of importing and setting up the startup vars. Can be changed or replaced later.
-    var version = "0.2.0.1";
+    var version = "1.0.0";
     var versionMsg = "Config!";
     var ncApiKey = "6R9fc29cMLw615PBv98u072430tZ3E9c";
     var startUpMsg = "Welcome to NCS version " + version + " | " + versionMsg + "<br>";
-    var newFeaturesMsg = "You can now configure your pad! You will need to upload a readable copy of a json file. You can find the example config here: <a href='https://github.com/bentenz5/NCS/blob/master/config.example.json'>here</a>. Keep in mind this is brand new and will be updated with more features in the future." + "<br>";
-    var alertMsg = "Let's all <a href='https://twitter.com/KEEMSTAR'>#StandWithKeem</a>";
+    var newFeaturesMsg = "You can now configure your pad! You will need to upload a readable copy of a json file. You can find the example config here: <a href='https://raw.githubusercontent.com/ImExiledd/NCS/master/config.example.json'>here</a>. Keep in mind this is brand new and will be updated with more features in the future." + "<br>";
+    var alertMsg = "";
     hiddenChat = false;
-    // var updateMsg = "NCS has updated! Refresh your page to get the latest update!<br> <a href='https://electricgaming.ga/en/showthread.php?tid=3' target='_blank'>Changelog</a>";
+    // var updateMsg = "NCS has updated! Refresh your page to get the latest update!<br> <a href='<REDACTED>' target='_blank'>Changelog</a>";
 
     //Update check
     function updateCheck(){
         $.ajax({
             type: "GET",
-            url: "https://rawgit.com/bentenz5/NCS/master/last.json"
+            url: "https://raw.githubusercontent.com/ImExiledd/NCS/master/last.json"
         }).done(function(data){
             if(data.version != version){
                 $('#messages').append('<center style=color:#A77DC2 class="cm broadcast"><div class="mdi mdi-alert msg"></div> NCS has updated! Refresh your page to get the latest update!<br> <a href="'+data.changelog+'" target="_blank">Changelog</a> | New version : '+data.version+'</center>');
@@ -42,7 +42,7 @@ else{
 
 
     // NCS stylesheet
-    $('head').append('<link href="https://rawgit.com/bentenz5/NCS/master/ncs.css" rel="stylesheet" type="text/css">');
+    $('head').append('<link href="https://raw.githubusercontent.com/ImExiledd/NCS/master/ncs.css" rel="stylesheet" type="text/css">');
 
     // Show startup messages
     $('#messages').append('<center style=color:#A77DC2 class="cm room-greet">' +
@@ -294,7 +294,7 @@ else{
     function ncsThemeShit() {
         if (ncssettings.customThemeEnabled === false) {
             $('#custom-theme').addClass('active');
-            $('head').append('<link id="NCSTheme" rel="stylesheet" href="https://rawgit.com/bentenz5/NCS/master/NCSTheme.css" type="text/css" />');
+            $('head').append('<link id="NCSTheme" rel="stylesheet" href="https://raw.githubusercontent.com/ImExiledd/NCS/master/NCSTheme.css" type="text/css" />');
             ncssettings.customThemeEnabled = true;
         }
         else {
@@ -511,7 +511,7 @@ else{
     //API.on(API.DATA.EVENTS.DJ_QUEUE_MOD_SKIP, alertSong);
     API.on(API.DATA.EVENTS.SERVER_RESPONSE, alertSong);
 
-    var ncssocket = null;
+    /* var ncssocket = null;
     var ncssockettries = 0;
 
     function initWebSocket () {
@@ -572,7 +572,7 @@ else{
     }
 
 
-    initWebSocket();
+    initWebSocket(); */
     loadSongDurationAlert();
     setTimeout(alertSong(), 2000);
     $("#moderatorSongDurationAlert").click(toggleSongDurationAlert);
@@ -654,7 +654,7 @@ if(hiddenChat === true) {
 // Begin Config
 function testDesc() {
   // Set test description. Example URI: https://rawgit.com/bentenz5/NCS/master/config.example.json
-  $('.logo-tab.description').html('@ncs="https://rawgit.com/bentenz5/NCS/master/config.example.json"');
+  $('.logo-tab.description').html('@ncs="https://raw.githubusercontent.com/ImExiledd/NCS/master/config.example.json"');
   console.info('TEST DESCRIPTION SET!')
 }
 
