@@ -11,7 +11,7 @@ else{
     var versionMsg = "Config!";
     var ncApiKey = "6R9fc29cMLw615PBv98u072430tZ3E9c";
     var startUpMsg = "Welcome to NCS version " + version + " | " + versionMsg + "<br>";
-    var newFeaturesMsg = "You can now configure your pad! You will need to upload a readable copy of a json file. You can find the example config here: <a href='https://raw.githubusercontent.com/ImExiledd/NCS/master/config.example.json'>here</a>. Keep in mind this is brand new and will be updated with more features in the future." + "<br>";
+    var newFeaturesMsg = "You can now configure your pad! You will need to upload a readable copy of a json file. You can find the example config here: <a href=https://cdn.jsdelivr.net/gh/ImExiledd/NCS@master/config.example.json'>here</a>. Keep in mind this is brand new and will be updated with more features in the future." + "<br>";
     var alertMsg = "";
     hiddenChat = false;
     // var updateMsg = "NCS has updated! Refresh your page to get the latest update!<br> <a href='<REDACTED>' target='_blank'>Changelog</a>";
@@ -20,7 +20,7 @@ else{
     function updateCheck(){
         $.ajax({
             type: "GET",
-            url: "https://raw.githubusercontent.com/ImExiledd/NCS/master/last.json"
+            url: "https://cdn.jsdelivr.net/gh/ImExiledd/NCS@master/last.json"
         }).done(function(data){
             if(data.version != version){
                 $('#messages').append('<center style=color:#A77DC2 class="cm broadcast"><div class="mdi mdi-alert msg"></div> NCS has updated! Refresh your page to get the latest update!<br> <a href="'+data.changelog+'" target="_blank">Changelog</a> | New version : '+data.version+'</center>');
@@ -294,7 +294,7 @@ else{
     function ncsThemeShit() {
         if (ncssettings.customThemeEnabled === false) {
             $('#custom-theme').addClass('active');
-            $('head').append('<link id="NCSTheme" rel="stylesheet" href="https://raw.githubusercontent.com/ImExiledd/NCS/master/NCSTheme.css" type="text/css" />');
+            $('head').append('<link id="NCSTheme" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ImExiledd/NCS@master/NCSTheme.css" type="text/css" />');
             ncssettings.customThemeEnabled = true;
         }
         else {
@@ -654,7 +654,7 @@ if(hiddenChat === true) {
 // Begin Config
 function testDesc() {
   // Set test description. Example URI: https://rawgit.com/bentenz5/NCS/master/config.example.json
-  $('.logo-tab.description').html('@ncs="https://raw.githubusercontent.com/ImExiledd/NCS/master/config.example.json"');
+  $('.logo-tab.description').html('@ncs="https://cdn.jsdelivr.net/gh/ImExiledd/NCS@master/config.example.json"');
   console.info('TEST DESCRIPTION SET!')
 }
 
