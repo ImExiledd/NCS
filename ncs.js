@@ -42,7 +42,7 @@ else{
 
 
     // NCS stylesheet
-    $('head').append('<link href="https://cdn.jsdelivr.net/gh/ImExiledd/NCS@master/NCSTheme.css" rel="stylesheet" type="text/css">');
+    $('head').append('<link href="https://cdn.jsdelivr.net/gh/ImExiledd/NCS@master/ncs.css" rel="stylesheet" type="text/css">');
 
     // Show startup messages
     $('#messages').append('<center style=color:#A77DC2 class="cm room-greet">' +
