@@ -8,7 +8,7 @@ else{
     var NCSload = true;
     // Temp method of importing and setting up the startup vars. Can be changed or replaced later.
     var version = "1.0.0";
-    var versionMsg = "Config!";
+    var versionMsg = "Ressurection!";
     var ncApiKey = "6R9fc29cMLw615PBv98u072430tZ3E9c";
     var startUpMsg = "Welcome to NCS version " + version + " | " + versionMsg + "<br>";
     var newFeaturesMsg = "You can now configure your pad! You will need to upload a readable copy of a json file. You can find the example config here: <a href=https://cdn.jsdelivr.net/gh/ImExiledd/NCS@master/config.example.json'>here</a>. Keep in mind this is brand new and will be updated with more features in the future." + "<br>";
@@ -83,7 +83,7 @@ else{
         return playersrc;
     }
 
-// Download thas shit!
+// Download thas shit! -- 2021, Feb 5 note: site used is dead
     function downloadThasShit() {
         //var playersrc = grabVidId();
         window.open("https://embed.yt-mp3.com/watch?v=" + API.room.getMedia().cid);
@@ -115,7 +115,6 @@ else{
                         <div id="custom-background-edit" class="item editable custom-background">Custom Background</div>
                         <div id="custom-mention-sounds" class="item editable custom-mention-sounds">Custom Mention Sounds</div>
                         <div id="header-miscellaneous" class="header">Miscellaneous</div>
-                        <a href="javascript:downloadThasShit();" style="text-decoration: none;"><div id="NCSDownload" class="item ncs-mp3">Download Current Song as MP3</div></a>
                         <div id="hideChat" class="item hideChat" onclick="hideChat();">Hide Chat</div>
                         <a href="javascript:updateCheck();"><div id="update-check" class="item update-check">Check for Updates</div></a>
                         <div id="issue-reporter" class="item issue-reporter"><a id="NCSIssues" href="https://github.com/bentenz5/NCS/issues" target="_blank">Found an issue!? Report it here!</a></div>
@@ -642,7 +641,7 @@ function hideChat() {
     }
 }
 
-$('.controls').append('<div id="Download" class="ctrl NCSBtnHover mdi" onclick=downloadThasShit();><img class="mdi" src="https://i.imgur.com/DrzFOem.png"></img></div>');
+/* $('.controls').append('<div id="Download" class="ctrl NCSBtnHover mdi" onclick=downloadThasShit();><img class="mdi" src="https://i.imgur.com/DrzFOem.png"></img></div>'); */
 
 if(hiddenChat === true) {
   $('.btn-chat').addClass('disabled');
