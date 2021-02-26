@@ -35,3 +35,6 @@ I couldn't have made NCS originally if it weren't for some old friends, they're 
 * Fuechschen
 
 I can't emphasise enough how much I miss you guys, and how greatful I am to have been friends with you. You helped me become as successful in life as a whole as I am today, rather then the no life I was back then. Thank you all for the good times, and I hope to see you again, one day. <3
+
+----------------
+You can contact me at either exile@imexile.moe, or exile@comms.admn.nt.imexile.moe
