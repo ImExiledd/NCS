@@ -1,51 +1,37 @@
-# NCS (Nightcore Community Script)
+#NCS (Nightcore Community Script) - Rewritten
 
-## Notice: All my repositories will now be public. Private repos will no longer be hosted on github.
+## Table of Contents
+* #1 - What is NCS?
+* #2 - Why Rewritten?
+* #3 - What happened to Plug.dj? Where's RCS and PlugCubed?
+* #4 - What does NCS aim to do?
+* #5 - Contributing
+* #6 - Credits
 
-### Installation and Activation
+### 1 - What is NCS?
+NCS stands for Nightcore Community Script. It was originally written back in 2015 when Plug.dj shut down the first time.
 
-#### Note: This version of NCS will NOT work with alpha.nightcore-331.net! This will ONLY work with musiqpad pads!
+### 2 - Why Rewritten?
+The original NCS code is very sloppy, and hard to read, let alone write on again. This was written when I was quite new to programming as a whole, and it could be done much more efficently and much better, with more features. Of course, the original NCS couldn't have been done without my friends from the time, whom I wish I could still be in touch with. I own them a lot, and I hope they come back and talk to me, and maybe help with this one day.
 
-NCS can be installed by visiting http://electricgaming.ga/ncs/new/#download and bookmarking the button there.
+### 4 - What does NCS aim to do?
+NCS aims to be a full replacement for RCS (Radiant Community Script) from Plug.dj, but for Musiqpad. With Plug.dj now gone a second time, users on Nightcore-331 are going to want some sort of feature extension script.
 
-### What is NCS
+### 5 - Contributing
+If you'd like to contribute to NCS, please submit a pull request. Users who contribute greatly will be added to the contributor list.
 
-After plug.dj shut down, the people in the Nightcore-331 community built their own backup site. And while we've lost a lot of the people
-we once had, we're ever growing once again. Because of this, we made NCS as a replacement for RCS, so that we can add features,
-and other things, that the default Nightcore-331 just doesn't have. You can find the new site here: https://alpha.nightcore-331.net
+### 6 - Credits
+I couldn't have made NCS originally if it weren't for some old friends, they're credited here:
 
-Now, we're moving on to bigger things. A new platform known as Musiqpad is out in beta now, and so, NCS is moving over to it! There will be no more updates for alpha.nightcore-331.net's version of NCS, however it will remain available.
-
-### Issues/Feature Requests
-
-To report an issue or request a feature, please use the Github issues page, found [here](https://github.com/bentenz5/NCS/issues).
-
-### Developers & Current Project Statuses
-##### Project Status -- Released!
-##### Development Status -- Still Adding Stuff!
-
-### Developers
-* Nuvm (Busy doing dank memes.)
-* CSxKING
+* Nuvm
 * Don
-* Pixel
-* WindWalk (MIA)
-
-### Contributers
+* PixelBreeze
+* WindWalk
 * Thomas
 * TheBanHammer
-* That random guy
-* Thomas
+* ThatRandomGuy
 * NewSoundNetwork
 * Gatt
 * Fuechschen
 
-###### If your name is not for whatever reason on that list and you have contributed, please contact me.
-
-### Planned ports
-We plan to port NCS over to turn.fm, and over to plug.dj again (if it ever re-releases). There are plans for musiqpad.
-
-### Support/Help
-If you need help, feel free to @CSxKING on Alpha or Discord. You may also contact @WindWalk on Alpha or Discord. You may also contact Nuvm on Skype (n.c_nuvm, add me to your friends or else i won't receive the message).
-
-If none are an option, you can email CSxKING at csxking@electricgaming.ga or Nuvm at nuvmyt@gmail.com .
+I can't emphasise enough how much I miss you guys, and how greatful I am to have been friends with you. You helped me become as successful in life as a whole as I am today, rather then the no life I was back then. Thank you all for the good times, and I hope to see you again, one day. <3
