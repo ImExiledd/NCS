@@ -1,4 +1,4 @@
-#NCS (Nightcore Community Script) - Rewritten
+##NCS (Nightcore Community Script) - Rewritten
 
 ## Table of Contents
 * #1 - What is NCS?
