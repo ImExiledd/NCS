@@ -21,7 +21,7 @@ var NCS = {
     // all code goes here, to prevent conflicts with Musiqpad or other scripts.
     settings: {
         version: "2.0.0",
-        changelog: ""
+        changelog: $.getJSON("https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/changelog.json", console.info("found changelog")),
         rcs: {
             rcsThemeJson: {
                 "room": "Radiant Music",
@@ -119,10 +119,10 @@ var NCS = {
                 scope.$apply();
             });
         }),
-        chatMsg: function(message) {
+        chatMsg: function(message, classname) {
             var dt = new Date();
             var time = dt.getHours() + ":" + dt.getMinutes();
-            $('#messages').append('<div id="cm-34" style="background-color:purple;" class="cm message self"><span class="time">' + time + '</span><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" class="bdg  hidden">\
+            $('#messages').append('<div id="cm-34" style="" class="cm '+ classname +' message self"><span class="time">' + time + '</span><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" class="bdg  hidden">\
         <defs>\
             <linearGradient id="badgegrad;#ff0000;#4800ff;">\
                 <stop stop-color="#ff0000" offset="49%"></stop>\
@@ -139,14 +139,39 @@ var NCS = {
         unload: function() {
             $("[id^=NCS").remove();
             NCS = null;
+            $('.NCSMSG').remove();
             this.chatMsg('Unloaded NCS, you may have to refresh to reload it.');
 
         },
     },
 
     init: function() {
-        var onLoadMsg = "NCS version " + NCS.settings.version + " loaded successfully!";
-        
+        // Changelog json stuffs:
+        // changelog.title changelog.tagline changelog.html
+        // begin init
+        NCS.funct.addMenu();
+        $('head').append('<link rel="stylesheet" class="NCS" href="https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/ncs.css" />');
 
+        // do this after init success
+        var onLoadMsg = "NCS version " + NCS.settings.version + " loaded successfully!";
+        var changelog = NCS.settings.changelog.responseJSON;
+        NCS.funct.chatMsg("NCS v" + NCS.settings.version + " loaded! | " + changelog.title, "NCSMSG NCSMSG-TITLE");
+        NCS.funct.chatMsg(changelog.tagline, "NCSMSG-TAGLINE");
+        NCS.funct.chatMsg(changelog.HTML, "NCSMSG");
+        $('head').append('<style class="NCSSTYLE">\
+        .NCSMSG {\
+            background-color: rgba(102,204,255,0.4) !important;\
+        }\
+        .NCSMSG-TITLE {\
+            background-color: rgba(102,204,255,0.4);\
+            font-size: 22px;\
+            font-style: bold;\
+        }\
+        .NCSMSG-TAGLINE {\
+            background-color: rgba(102,204,255,0.4) !important;\
+            font-style:italic;\
+        }\
+        </style>');
+        
     }
 };
