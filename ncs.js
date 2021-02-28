@@ -20,7 +20,10 @@ window.onload = function() {
 const NCS = {
     // all code goes here, to prevent conflicts with Musiqpad or other scripts.
     settings: {
-
+    	rcs: {
+    		rcsThemeJson: {"room":"Radiant Music","author":"Origin","icon":"https://cdn.radiant.dj/rcs/icons/radiant/logo.png","css":"https://cdn.radiant.dj/rcs/rs_room.css","rules":{"allowAutorespond":true,"allowAutowoot":true,"allowAutojoin":true,"allowAutograb":true,"allowSmartVote":true,"allowEmotes":true,"allowShowingMehs":true,"forceSmartVote":false},"ccc":{"admin":"#42A5DC","ambassador":"#84B423","host":"#FF9B00","cohost":"#F3508F","manager":"#F3508F","bouncer":"#F3508F","rdj":"#5DB4FF","subscriber":"#A1A6B3","silversubscriber":"#A1A6B3","friend":"#B35D88","user":"#8B92A3"},"images":{"background":null,"playback":null,"admin":"https://cdn.radiant.dj/rcs/icons/radiant/admin.png","ambassador":"https://cdn.radiant.dj/rcs/icons/radiant/ambassador.png","host":"https://cdn.radiant.dj/rcs/icons/radiant/host.png","cohost":"https://cdn.radiant.dj/rcs/icons/radiant/cohost.png","manager":"https://cdn.radiant.dj/rcs/icons/radiant/manager.png","bouncer":"https://cdn.radiant.dj/rcs/icons/radiant/bouncer.png","rdj":"https://cdn.radiant.dj/rcs/icons/radiant/residentdj.png","subscriber":null,"silversubscriber":"https://cdn.radiant.dj/rcs/icons/radiant/subscriber.png"},"autocomplete":[],"emotes":{"custom_test":"https://cdn.radiant.dj/rcs/icons/test_custom.png"}},
+    		
+    	}
     },
     funct: {
         addMenu: (function() {
@@ -36,7 +39,7 @@ const NCS = {
                         <div id="auto-join" class="item auto-join">AutoJoin DJ Queue</div>
                         <div id="afk-responder" class="item afk-responder">AFK Responder</div>
                         <div id="header-personalization" class="header">Personalization</div>
-                        <div id='custom-theme' class='item custom-theme' onclick='ncsThemeShit();'>NCS Custom Theme</div>
+                        <div id='custom-theme' class='item custom-theme' onclick='ncsThemeShit();'>RCS Theme Revived</div>
                         <div id="desktop-notifs" class="item desktop-notifs" onclick='toggleDesktopNotifications();'>Desktop Notifications</div>
                         <div id="custom-background" class="item custom-background">Custom Background</div>
                         <div id="custom-mention-sounds" class="item custom-mention-sounds">Custom Mention Sounds</div>
