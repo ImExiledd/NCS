@@ -37,7 +37,7 @@ var NCS = {
     }, (JSON.parse(window.localStorage.getItem('ncs2-settings')) || {})),
     settings: {
         version: "2.0.0",
-        changelog: $.getJSON("https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/changelog.json", console.info("found changelog")),
+        changelog: $.getJSON("https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/changelog.json", function(json){console.info("found changelog");/*NCS.settings.changelog= json;*/}),
         rcs: {
             rcsThemeJson: {
                 "room": "Radiant Music",
@@ -152,6 +152,7 @@ var NCS = {
             eta: setInterval(function() {
                 var position = API.queue.getPosition();
                 position = (position < 0) ? API.queue.getDJs().length : position;
+                position = (position == 1) ? 1 : position;
                 var eta = ~~((position * (3.5 * 60)) + API.room.getTimeRemaining());
                 if(NCS.userSettings.eta) {
                     // true
@@ -182,6 +183,7 @@ var NCS = {
             </div>');
         },
         previousThemeName: null,
+        loadCount: (typeof loadCount === "undefined") ? 0 :this.funct.loadCount,
         setTheme: function(themeName) {
             var themeURI = "https://get.imexile.moe/NCS/themes/" + themeName + ".css";
             $('#NCSTheme').remove();
@@ -213,9 +215,28 @@ var NCS = {
         $('head').append('<link rel="stylesheet" class="NCS" href="https://get.imexile.moe/NCS/ncs.css" />');
         $('head').append('<link rel="stylesheet" id="NCSTheme" href="" />');
         // load specific settings
-        NCS.funct.setTheme(NCS.userSettings.currentTheme);
+        if (NCS.userSettings.currentTheme){
+            NCS.funct.setTheme(NCS.userSettings.currentTheme);
+        }
+        if(!NCS.settings.changelog.responseJSON){
+            console.debug(NCS.settings.changelog)
+            console.debug(Object.keys(NCS.settings.changelog))
+            //Seems to actually run 3 times /shrug
+            if(NCS.funct.loadCount >1){
+                console.error("Failed to load")
+                this.funct.unload;
+                stop;
+            } else {
+                NCS.funct.loadCount++;
+                setTimeout(()=>{this.init();},2000);
+            }
+            
+            
+        }
         // do this after init success
         var onLoadMsg = "NCS version " + NCS.settings.version + " loaded successfully!";
+        // Make sure that changelog loaded
+        
         var changelog = NCS.settings.changelog.responseJSON;
         NCS.funct.chatMsg("NCS v" + NCS.settings.version + " loaded! | " + changelog.title, "NCSMSG NCSMSG-TITLE");
         NCS.funct.chatMsg(changelog.tagline, "NCSMSG-TAGLINE");
