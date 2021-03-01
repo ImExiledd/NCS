@@ -208,7 +208,7 @@
 /* This items in the NCS menu on hover. When an item is hovered, this will happen */
 #ncs-back .item:hover {
     opacity: 1;
-    background-color:#00FFF6;
+    background-color: rgba(82, 24, 145, 0.7);
      transition: opacity .2s ease-in-out;
     -moz-transition: opacity .2s ease-in-out;
     -webkit-transition: opacity .2s ease-in-out;

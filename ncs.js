@@ -150,7 +150,7 @@ var NCS = {
         // changelog.title changelog.tagline changelog.html
         // begin init
         NCS.funct.addMenu();
-        $('head').append('<link rel="stylesheet" class="NCS" href="https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/ncs.css" />');
+        $('head').append('<link rel="stylesheet" class="NCS" href="https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/ncs.min.css" />');
 
         // do this after init success
         var onLoadMsg = "NCS version " + NCS.settings.version + " loaded successfully!";
