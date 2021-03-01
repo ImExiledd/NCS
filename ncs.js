@@ -154,7 +154,7 @@ var NCS = {
                 position = (position < 0) ? API.queue.getDJs().length : position-1;
                 var eta = ~~((position * (3.5 * 60)) + API.room.getTimeRemaining());
                 if(position == -1 && NCS.userSettings.autojoin){
-                    autojoin();
+                    NCS.funct.intervals.autojoin();
                 }
                 if(NCS.userSettings.eta) {
                     // true
