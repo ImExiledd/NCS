@@ -151,8 +151,7 @@ var NCS = {
             },
             eta: setInterval(function() {
                 var position = API.queue.getPosition();
-                position = (position < 0) ? API.queue.getDJs().length : position;
-                position = (position == 1) ? 1 : position;
+                position = (position < 0) ? API.queue.getDJs().length : position-1;
                 var eta = ~~((position * (3.5 * 60)) + API.room.getTimeRemaining());
                 if(NCS.userSettings.eta) {
                     // true
