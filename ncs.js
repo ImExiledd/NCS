@@ -206,6 +206,28 @@ var NCS = {
 
         },
     },
+    sleep: function(milliseconds){
+        const date = Date.now();
+        let currentDate = null;
+        do {
+          currentDate = Date.now();
+        } while (currentDate - date < milliseconds);
+    },
+    waitload:function(){
+        if(!NCS.settings.changelog.responseJSON){
+            console.debug(NCS.settings.changelog)
+            console.debug(Object.keys(NCS.settings.changelog))
+            if(NCS.funct.loadCount >1){
+                console.error("Failed to load")
+                this.funct.unload;
+                return 'exit';
+            } else {
+                NCS.funct.loadCount++;
+                this.sleep(2000);
+                this.waitload();
+            }
+        }
+    },
 
     init: function() {
         // Changelog json stuffs:
@@ -218,20 +240,8 @@ var NCS = {
         if (NCS.userSettings.currentTheme){
             NCS.funct.setTheme(NCS.userSettings.currentTheme);
         }
-        if(!NCS.settings.changelog.responseJSON){
-            console.debug(NCS.settings.changelog)
-            console.debug(Object.keys(NCS.settings.changelog))
-            //Seems to actually run 3 times /shrug
-            if(NCS.funct.loadCount >1){
-                console.error("Failed to load")
-                this.funct.unload;
-                stop;
-            } else {
-                NCS.funct.loadCount++;
-                setTimeout(()=>{this.init();},2000);
-            }
-            
-            
+        if(this.waitload() == 'exit'){
+            delete this;
         }
         // do this after init success
         var onLoadMsg = "NCS version " + NCS.settings.version + " loaded successfully!";
