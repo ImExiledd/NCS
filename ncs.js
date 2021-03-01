@@ -218,6 +218,7 @@ var NCS = {
             console.debug(Object.keys(NCS.settings.changelog))
             if(NCS.funct.loadCount >1){
                 console.error("Failed to load")
+                this.funct.chatMsg("Failed to load changelog");
                 this.funct.unload;
                 return 'exit';
             } else {
@@ -232,6 +233,9 @@ var NCS = {
         // Changelog json stuffs:
         // changelog.title changelog.tagline changelog.html
         // begin init
+        if(this.waitload() == 'exit'){
+            delete this;
+        }
         NCS.funct.addMenu();
         $('head').append('<link rel="stylesheet" class="NCS" href="s://get.imexile.moe/NCS/ncs.css" />');
         $('head').append('<link rel="stylesheet" id="NCSTheme" href="" />');
