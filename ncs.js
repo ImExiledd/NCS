@@ -100,7 +100,7 @@ var NCS = {
                         <div id="header-miscellaneous" class="header">Miscellaneous</div>
                         <div id="hideChat" class="item hideChat" onclick="hideChat();">Hide Chat</div>
                         <a href="javascript:updateCheck();"><div id="update-check" class="item update-check">Check for Updates</div></a>
-                        <div id="issue-reporter" class="item issue-reporter"><a id="NCSIssues" href="https://github.com/bentenz5/NCS/issues" target="_blank">Found an issue!? Report it here!</a></div>
+                        <div id="ee" class="item issue-reporter"><a id="NCSee" href="javascript:NCS.funct.ee();" target=""><3</a></div>
                     </div>
                 </div>`
             };
