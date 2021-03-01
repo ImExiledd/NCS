@@ -99,8 +99,6 @@ var NCS = {
                         <div id="custom-mention-sounds" class="item editable custom-mention-sounds">Custom Mention Sounds</div>
                         <div id="header-miscellaneous" class="header">Miscellaneous</div>
                         <div id="hideChat" class="item hideChat" onclick="hideChat();">Hide Chat</div>
-                        <a href="javascript:updateCheck();"><div id="update-check" class="item update-check">Check for Updates</div></a>
-                        <div id="ee" class="item issue-reporter"><a id="NCSee" href="javascript:NCS.funct.ee();" target=""><3</a></div>
                     </div>
                 </div>`
             };
@@ -122,22 +120,24 @@ var NCS = {
         chatMsg: function(message, classname) {
             var dt = new Date();
             var time = dt.getHours() + ":" + dt.getMinutes();
-            $('#messages').append('<div id="cm-34" style="" class="cm '+ classname +' message self"><span class="time">' + time + '</span><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" class="bdg  hidden">\
-        <defs>\
-            <linearGradient id="badgegrad;#ff0000;#4800ff;">\
-                <stop stop-color="#ff0000" offset="49%"></stop>\
-                <stop stop-color="#4800ff" offset="51%"></stop>\
-            </linearGradient>\
-        </defs>\
-        <g>\
-            <circle id="circle" r="7.25" cy="8" cx="8" transform="rotate(45, 8, 8)" stroke-linecap="null" stroke-linejoin="null" stroke="#ffffff" fill="url(#badgegrad;#ff0000;#4800ff;)" stroke-width="1.5"></circle>\
-        </g>\
-    </svg>\
-    <div class="text"><span class="umsg">' + message + '</span></div>\
-</div>');
+            $('#messages').append('\
+            <div id="cm-34" style="" class="cm '+ classname +' message self"><span class="time">' + time + '</span><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" class="bdg  hidden">\
+                    <defs>\
+                        <linearGradient id="badgegrad;#ff0000;#4800ff;">\
+                            <stop stop-color="#ff0000" offset="49%"></stop>\
+                            <stop stop-color="#4800ff" offset="51%"></stop>\
+                        </linearGradient>\
+                    </defs>\
+                    <g>\
+                        <circle id="circle" r="7.25" cy="8" cx="8" transform="rotate(45, 8, 8)" stroke-linecap="null" stroke-linejoin="null" stroke="#ffffff" fill="url(#badgegrad;#ff0000;#4800ff;)" stroke-width="1.5"></circle>\
+                    </g>\
+                </svg>\
+                <div class="text"><span class="umsg">' + message + '</span></div>\
+            </div>');
         },
         unload: function() {
             $("[id^=NCS").remove();
+            $('#ncs-back').remove();
             NCS = null;
             $('.NCSMSG').remove();
             this.chatMsg('Unloaded NCS, you may have to refresh to reload it.');
