@@ -37,7 +37,7 @@ var NCS = {
     }, (JSON.parse(window.localStorage.getItem('ncs2-settings')) || {})),
     settings: {
         version: "2.0.0",
-        changelog: $.getJSON("s://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/changelog.json", function(json){console.info("found changelog");/*NCS.settings.changelog= json;*/}),
+        changelog: $.getJSON("https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/changelog.json", function(json){console.info("found changelog");/*NCS.settings.changelog= json;*/}),
         rcs: {
             rcsThemeJson: {
                 "room": "Radiant Music",
