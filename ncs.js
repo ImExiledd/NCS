@@ -15,10 +15,26 @@ window.onload = function() {
         document.getElementsByTagName('head')[0].appendChild(script);
         jQuery.noConflict();
     }
+    setTimeout(NCS.init(), 1500);
+}
+
+window.onbeforeunload = function(e) {
+    // save ncs settings
+    window.localStorage.setItem('ncs2-settings', JSON.stringify(NCS.userSettings));
 }
 
 var NCS = {
     // all code goes here, to prevent conflicts with Musiqpad or other scripts.
+    userSettings: $.extend({
+        autolike: false,
+        autojoin: false,
+        eta: true,
+        customBackground: false,
+        customBackgroundUri: null,
+        customThemeEnabled: false,
+        moderatorSongAlert: false,
+        currentTheme: null,
+    }, (JSON.parse(window.localStorage.getItem('ncs2-settings')) || {})),
     settings: {
         version: "2.0.0",
         changelog: $.getJSON("https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/changelog.json", console.info("found changelog")),
@@ -120,6 +136,33 @@ var NCS = {
                 scope.$apply();
             });
         }),
+        intervals: {
+            readableEta: function(total) {
+                var hours = ~~(total / 3600);
+                var minutes = (~~(total / 60)) % 60;
+                var seconds = total % 60
+                return NCS.funct.intervals.normalize(hours) + ':' + NCS.funct.intervals.normalize(minutes) + ':' + NCS.funct.intervals.normalize(seconds);
+            },
+            normalize: function(number) {
+                var addition = (number < 10
+                    ? '0'
+                    : '');
+                    return addition + number;
+            },
+            eta: setInterval(function() {
+                var position = API.queue.getPosition();
+                position = (position < 0) ? API.queue.getDJs().length : position;
+                var eta = ~~((position * (3.5 * 60)) + API.room.getTimeRemaining());
+                if(NCS.userSettings.eta) {
+                    // true
+                    if(API.queue.getPosition() === 0) {
+                        $('.btn-join').attr('data-eta', "You're the DJ!");
+                    } else {
+                        $('.btn-join').attr('data-eta', NCS.funct.intervals.readableEta());
+                    }
+                }
+            }, 1000),
+        },
         chatMsg: function(message, classname) {
             var dt = new Date();
             var time = dt.getHours() + ":" + dt.getMinutes();
@@ -146,6 +189,7 @@ var NCS = {
             // set active
             $('#mqp-' + themeName + '-theme').addClass('active');
             $('#mqp-' + this.previousThemeName + '-theme').removeClass('active');
+            NCS.userSettings.currentTheme = themeName;
             // end set active
             this.previousThemeName = themeName;
         },
@@ -168,6 +212,8 @@ var NCS = {
         NCS.funct.addMenu();
         $('head').append('<link rel="stylesheet" class="NCS" href="https://get.imexile.moe/NCS/ncs.css" />');
         $('head').append('<link rel="stylesheet" id="NCSTheme" href="" />');
+        // load specific settings
+        NCS.funct.setTheme(NCS.userSettings.currentTheme);
         // do this after init success
         var onLoadMsg = "NCS version " + NCS.settings.version + " loaded successfully!";
         var changelog = NCS.settings.changelog.responseJSON;
