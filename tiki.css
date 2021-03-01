@@ -1,6 +1,6 @@
 
 #room-bg { /* self explanatory u noob */
-  background-image: url("http://i.imgur.com/Wrs28dm.jpg") !important;
+  background-image: url("https://i.imgur.com/Wrs28dm.jpg") !important;
 }
 .tray .active {
   border-bottom: 3px solid #5DC300;
@@ -13,7 +13,7 @@
 .playback { /* video box */
   border: 1px solid #5DC300;
   background-color: rgba(0, 0, 0, 0.7);
-  background-image: url("http://i.imgur.com/cojhGOB.png");
+  background-image: url("https://i.imgur.com/cojhGOB.png");
   background-size: 60%;
 }
 .dash { /* top bar */

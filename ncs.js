@@ -11,7 +11,7 @@ window.onload = function() {
         var script = document.createElement('script');
         script.type = "text/javascript";
         script.async = true;
-        script.src = "https://code.jquery.com/jquery-3.5.1.min.js";
+        script.src = "s://code.jquery.com/jquery-3.5.1.min.js";
         document.getElementsByTagName('head')[0].appendChild(script);
         jQuery.noConflict();
     }
@@ -37,13 +37,13 @@ var NCS = {
     }, (JSON.parse(window.localStorage.getItem('ncs2-settings')) || {})),
     settings: {
         version: "2.0.0",
-        changelog: $.getJSON("https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/changelog.json", function(json){console.info("found changelog");/*NCS.settings.changelog= json;*/}),
+        changelog: $.getJSON("s://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/changelog.json", function(json){console.info("found changelog");/*NCS.settings.changelog= json;*/}),
         rcs: {
             rcsThemeJson: {
                 "room": "Radiant Music",
                 "author": "Origin",
-                "icon": "https://cdn.radiant.dj/rcs/icons/radiant/logo.png",
-                "css": "https://cdn.radiant.dj/rcs/rs_room.css",
+                "icon": "s://cdn.radiant.dj/rcs/icons/radiant/logo.png",
+                "css": "s://cdn.radiant.dj/rcs/rs_room.css",
                 "rules": {
                     "allowAutorespond": true,
                     "allowAutowoot": true,
@@ -70,19 +70,19 @@ var NCS = {
                 "images": {
                     "background": null,
                     "playback": null,
-                    "admin": "https://cdn.radiant.dj/rcs/icons/radiant/admin.png",
-                    "ambassador": "https://cdn.radiant.dj/rcs/icons/radiant/ambassador.png",
-                    "host": "https://cdn.radiant.dj/rcs/icons/radiant/host.png",
-                    "cohost": "https://cdn.radiant.dj/rcs/icons/radiant/cohost.png",
-                    "manager": "https://cdn.radiant.dj/rcs/icons/radiant/manager.png",
-                    "bouncer": "https://cdn.radiant.dj/rcs/icons/radiant/bouncer.png",
-                    "rdj": "https://cdn.radiant.dj/rcs/icons/radiant/residentdj.png",
+                    "admin": "s://cdn.radiant.dj/rcs/icons/radiant/admin.png",
+                    "ambassador": "s://cdn.radiant.dj/rcs/icons/radiant/ambassador.png",
+                    "host": "s://cdn.radiant.dj/rcs/icons/radiant/host.png",
+                    "cohost": "s://cdn.radiant.dj/rcs/icons/radiant/cohost.png",
+                    "manager": "s://cdn.radiant.dj/rcs/icons/radiant/manager.png",
+                    "bouncer": "s://cdn.radiant.dj/rcs/icons/radiant/bouncer.png",
+                    "rdj": "s://cdn.radiant.dj/rcs/icons/radiant/residentdj.png",
                     "subscriber": null,
-                    "silversubscriber": "https://cdn.radiant.dj/rcs/icons/radiant/subscriber.png"
+                    "silversubscriber": "s://cdn.radiant.dj/rcs/icons/radiant/subscriber.png"
                 },
                 "autocomplete": [],
                 "emotes": {
-                    "custom_test": "https://cdn.radiant.dj/rcs/icons/test_custom.png"
+                    "custom_test": "s://cdn.radiant.dj/rcs/icons/test_custom.png"
                 }
             },
 
@@ -168,7 +168,7 @@ var NCS = {
             var dt = new Date();
             var time = dt.getHours() + ":" + dt.getMinutes();
             $('#messages').append('\
-            <div id="cm-34" style="" class="cm '+ classname +' message self"><span class="time">' + time + '</span><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" class="bdg  hidden">\
+            <div id="cm-34" style="" class="cm '+ classname +' message self"><span class="time">' + time + '</span><svg viewBox="0 0 16 16" xmlns="://www.w3.org/2000/svg" version="1.1" class="bdg  hidden">\
                     <defs>\
                         <linearGradient id="badgegrad;#ff0000;#4800ff;">\
                             <stop stop-color="#ff0000" offset="49%"></stop>\
@@ -185,7 +185,7 @@ var NCS = {
         previousThemeName: null,
         loadCount: (typeof loadCount === "undefined") ? 0 :this.funct.loadCount,
         setTheme: function(themeName) {
-            var themeURI = "https://get.imexile.moe/NCS/themes/" + themeName + ".css";
+            var themeURI = "s://get.imexile.moe/NCS/themes/" + themeName + ".css";
             $('#NCSTheme').remove();
             $('head').append("<link id='NCSTheme' rel='stylesheet' href='" + themeURI + "' />");
             // set active
@@ -234,7 +234,7 @@ var NCS = {
         // changelog.title changelog.tagline changelog.html
         // begin init
         NCS.funct.addMenu();
-        $('head').append('<link rel="stylesheet" class="NCS" href="https://get.imexile.moe/NCS/ncs.css" />');
+        $('head').append('<link rel="stylesheet" class="NCS" href="s://get.imexile.moe/NCS/ncs.css" />');
         $('head').append('<link rel="stylesheet" id="NCSTheme" href="" />');
         // load specific settings
         if (NCS.userSettings.currentTheme){
