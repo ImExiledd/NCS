@@ -80,13 +80,16 @@ var NCS = {
                 </div>`,
                 'back': `<div data-ng-show="(prop.c == 31)" class="ng-hide" id="ncs-back">
                     <div class="items">
-                        <div id="header-settings" class="mheader">NCS Settings</div>
                         <div id="header-general" class="header">General Functionality</div>
                         <div id="auto-like" class="item auto-like">AutoLike</div>
                         <div id="auto-join" class="item auto-join">AutoJoin DJ Queue</div>
                         <div id="afk-responder" class="item afk-responder">AFK Responder</div>
+                        <div id="header-themes" class="header">Themes</div>
+                        <div id='custom-theme' class='item mqp-rcs' onclick='NCS.funct.setTheme("rcs");'>RCS Theme Revived</div>
+                        <div id='mqp-tiki-theme' class=item mqp-tiki' onclick='NCS.funct.setTheme("tiki");'>Tiki</div>
+                        <div id='mqp-halloween-theme' class=item mqp-halloween' onclick='NCS.funct.setTheme("halloween");'>Halloween</div>
+                        <div id='mqp-ncs-classic-theme' class=item mqp-ncs-classic' onclick='NCS.funct.setTheme("ncs-classic");'>NCS Classic</div>
                         <div id="header-personalization" class="header">Personalization</div>
-                        <div id='custom-theme' class='item custom-theme' onclick='ncsThemeShit();'>RCS Theme Revived</div>
                         <div id="desktop-notifs" class="item desktop-notifs" onclick='toggleDesktopNotifications();'>Desktop Notifications</div>
                         <div id="custom-background" class="item custom-background">Custom Background</div>
                         <div id="custom-mention-sounds" class="item custom-mention-sounds">Custom Mention Sounds</div>
@@ -135,9 +138,22 @@ var NCS = {
                 <div class="text"><span class="umsg">' + message + '</span></div>\
             </div>');
         },
+        previousThemeName: null,
+        setTheme: function(themeName) {
+            var themeURI = "https://get.imexile.moe/NCS/themes/" + themeName + ".css";
+            $('#NCSTheme').remove();
+            $('head').append("<link id='NCSTheme' rel='stylesheet' href='" + themeURI + "' />");
+            // set active
+            $('#mqp-' + themeName + '-theme').addClass('active');
+            $('#mqp-' + this.previousThemeName + '-theme').removeClass('active');
+            // end set active
+            this.previousThemeName = themeName;
+        },
         unload: function() {
             $("[id^=NCS").remove();
             $('#ncs-back').remove();
+            $('style[class=NCSSTYLE]').remove();
+            $('link[class=NCS]').remove();
             NCS = null;
             $('.NCSMSG').remove();
             this.chatMsg('Unloaded NCS, you may have to refresh to reload it.');
@@ -150,8 +166,8 @@ var NCS = {
         // changelog.title changelog.tagline changelog.html
         // begin init
         NCS.funct.addMenu();
-        $('head').append('<link rel="stylesheet" class="NCS" href="https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/ncs.min.css" />');
-
+        $('head').append('<link rel="stylesheet" class="NCS" href="https://get.imexile.moe/NCS/ncs.css" />');
+        $('head').append('<link rel="stylesheet" id="NCSTheme" href="" />');
         // do this after init success
         var onLoadMsg = "NCS version " + NCS.settings.version + " loaded successfully!";
         var changelog = NCS.settings.changelog.responseJSON;
