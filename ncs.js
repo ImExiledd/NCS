@@ -158,7 +158,7 @@ var NCS = {
                     if(API.queue.getPosition() === 0) {
                         $('.btn-join').attr('data-eta', "You're the DJ!");
                     } else {
-                        $('.btn-join').attr('data-eta', NCS.funct.intervals.readableEta());
+                        $('.btn-join').attr('data-eta', NCS.funct.intervals.readableEta(eta));
                     }
                 }
             }, 1000),
