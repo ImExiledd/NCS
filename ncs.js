@@ -98,7 +98,7 @@ var NCS = {
                     <div class="items">
                         <div id="header-general" class="header">General Functionality</div>
                         <div id="auto-like" class="item auto-like">AutoLike</div>
-                        <div id="auto-join" class="item auto-join">AutoJoin DJ Queue</div>
+                        <div id="auto-join" class="item auto-join" onclick='NCS.funct.autoJoinCheck(true)'>AutoJoin DJ Queue</div>
                         <div id="afk-responder" class="item afk-responder">AFK Responder</div>
                         <div id="header-themes" class="header">Themes</div>
                         <div id='custom-theme' class='item mqp-rcs' onclick='NCS.funct.setTheme("rcs");'>RCS Theme Revived</div>
@@ -153,6 +153,9 @@ var NCS = {
                 var position = API.queue.getPosition();
                 position = (position < 0) ? API.queue.getDJs().length : position-1;
                 var eta = ~~((position * (3.5 * 60)) + API.room.getTimeRemaining());
+                if(position == -1 && NCS.userSettings.autojoin){
+                    autojoin();
+                }
                 if(NCS.userSettings.eta) {
                     // true
                     if(API.queue.getPosition() === 0) {
@@ -162,6 +165,24 @@ var NCS = {
                     }
                 }
             }, 1000),
+            autojoin: function(){
+                var permission = (typeof permissions === "undefined") ? API.util.hasPermission('djqueue.join') : permission
+                if (API.queue.getPosition() == -1 && permission){
+                    API.queue.join()
+                } else {
+                    return;
+                }
+            }
+        },
+        autoJoinCheck: function(setsettings){
+            if (setsettings){
+                NCS.userSettings.autojoin = !NCS.userSettings.autojoin;
+            }
+            if (NCS.userSettings.autojoin){
+                $('auto-join').addClass('active');
+            } else {
+                $('auto-join').removeClass('active');
+            }
         },
         chatMsg: function(message, classname) {
             var dt = new Date();
@@ -243,9 +264,7 @@ var NCS = {
         if (NCS.userSettings.currentTheme){
             NCS.funct.setTheme(NCS.userSettings.currentTheme);
         }
-        if(this.waitload() == 'exit'){
-            delete this;
-        }
+        NCS.funct.autoJoinCheck();
         // do this after init success
         var onLoadMsg = "NCS version " + NCS.settings.version + " loaded successfully!";
         // Make sure that changelog loaded
