@@ -182,7 +182,7 @@ var NCS = {
             },
             autolike: setInterval(function () {
                 if (NCS.userSettings.autoLike) {
-                    if (!('.btn-upvote').hasClass('active')) {
+                    if (!$('.btn-upvote').hasClass('active')) {
                         $('.btn-upvote').click();
                     }
                 }
