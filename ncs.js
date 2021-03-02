@@ -99,8 +99,8 @@ var NCS = {
                 'back': `<div data-ng-show="(prop.c == 31)" class="ng-hide" id="ncs-back">
                     <div class="items">
                         <div id="header-general" class="header">General Functionality</div>
-                        <div id="autoLike" class="item auto-like" onclick='NCS.funct.settingChanger('autoLike')'>AutoLike</div>
-                        <div id="autoJoin" class="item auto-join" onclick='NCS.funct.settingChanger('autoJoin')'>AutoJoin DJ Queue</div>
+                        <div id="autoLike" class="item auto-like" onclick='NCS.funct.settingChanger("autoLike");'>AutoLike</div>
+                        <div id="autoJoin" class="item auto-join" onclick='NCS.funct.settingChanger("autoJoin");'>AutoJoin DJ Queue</div>
                         <div id="afk-responder" class="item afk-responder">WIP AFK Responder</div>
                         <div id="header-themes" class="header">Themes</div>
                         <div id='custom-theme' class='item mqp-rcs' onclick='NCS.funct.setTheme("rcs");'>RCS Theme Revived</div>
@@ -108,10 +108,10 @@ var NCS = {
                         <div id='mqp-halloween-theme' class=item mqp-halloween' onclick='NCS.funct.setTheme("halloween");'>Halloween</div>
                         <div id='mqp-ncs-classic-theme' class=item mqp-ncs-classic' onclick='NCS.funct.setTheme("ncs-classic");'>NCS Classic</div>
                         <div id="header-personalization" class="header">Personalization</div>
-                        <div id="desktopnotif" class="item desktop-notifs" onclick='NCS.funct.settingChanger('desktopnotif')>Desktop Notifications</div>
+                        <div id="desktopnotif" class="item desktop-notifs" onclick='NCS.funct.settingChanger("desktopnotif");'>Desktop Notifications</div>
                         <div id="custom-background" class="item custom-background">WIP Custom Background</div>
                         <div id="custom-mention-sounds" class="item custom-mention-sounds">WIP Custom Mention Sounds</div>
-                        <div id="eta" class="item eta" onclick='NCS.funct.settingChanger('eta')'>ETA</div>
+                        <div id="eta" class="item eta" onclick='NCS.funct.settingChanger("eta");'>ETA</div>
                         <div id="header-moderation" class="header">Moderation</div>
                         <div id="moderatorSongDurationAlert" class="item eta">Song Duration Alert</div>
                         <div id="header-edit-stuff" class="header">Edit your Settings</div>
@@ -165,6 +165,8 @@ var NCS = {
                     } else {
                         $('.btn-join').attr('data-eta', NCS.funct.intervals.readableEta(eta));
                     }
+                } else {
+                    $('btn-join').removeAttr('data-eta');
                 }
             }, 1000),
             autojoin: function () {
@@ -262,6 +264,7 @@ var NCS = {
             } else {
                 NCS.userSettings[setting] = state;
             }
+            this.checkMarkChanger(setting)
             window.localStorage.setItem('ncs2-settings', JSON.stringify(NCS.userSettings));
         },
         checkMarkChanger: function (setting, state) {
