@@ -181,12 +181,19 @@ var NCS = {
                 }
             },
             autolike: setInterval(function () {
+                var count = (typeof count ==="undefined") ? 0 : count
+                count++;
+                var position = (typeof position === "undefined") ? API.queue.getPosition() : position
+                if (count >5){
+                    position=API.queue.getPosition()
+                    count =0
+                }
                 if (NCS.userSettings.autoLike) {
                     if (!$('.btn-upvote').hasClass('active')) {
-                        $('.btn-upvote').click();
+                        $('.btn-upvote')[0].click();
                     }
                 }
-            }, 1000)
+            }, 2500)
         },
         hideChat: function (state) {
             if (typeof state === "undefined") {
