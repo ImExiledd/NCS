@@ -404,3 +404,49 @@ input#background-input {
         50%{background-position:100% 19%}
         100%{background-position:0% 82%}
     }
+
+    /* new loli counter */
+    #ncs-lc {
+        color: whitesmoke;
+        display: block;
+        font-size: 24px;
+        left: 1em;
+        position: relative;
+        top: 1em;
+        width: 150px;
+        height: 50px;
+        padding-top: 1em;
+        background: rgba(37, 38, 37, 0.6);
+        text-align: center;
+        border-radius: 10px;
+        font-style: italic;
+        transition: all 0.2s;
+    }
+    #ncs-lc > img {
+        opacity: 0.6;
+        transition: all 0.3s;
+    }
+    #ncs-lc > img:hover {
+        opacity: 1;
+        transition: all 0.3s;
+    }
+    #ncs-lc:hover {
+        background: rgba(37, 38, 37, 1);
+        transition: all 0.2s;
+    }
+    
+    #ncs-lc > img {
+        width: 25%;
+        height: auto;
+        margin-right: 0.5em;
+        position: absolute;
+        left: 1em;
+        bottom: 0.5em;
+    }
+    
+    .ee-icn {
+        /* what does this do? xD */
+        width: 16px;
+        height: 16px;
+        text-align: center;
+    }

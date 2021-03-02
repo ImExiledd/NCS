@@ -363,6 +363,7 @@ var NCS = {
         NCS.funct.addMenu();
         $('head').append('<link rel="stylesheet" class="NCS" href="https://get.imexile.moe/NCS/ncs.css" />');
         $('head').append('<link rel="stylesheet" id="NCSTheme" href="" />');
+        $('#app-left').prepend('<span id="ncs-lc" style="display:block;"><img src="https://i.imgur.com/uRBf2qq.png">0</span>');
         NCS.funct.checkMarkSetting();
         // do this after init success
         var onLoadMsg = "NCS version " + NCS.settings.version + " loaded successfully!";
