@@ -211,7 +211,7 @@ var NCS = {
             } else {
                 NCS.userSettings[setting] = state;
             }
-
+            window.localStorage.setItem('ncs2-settings', JSON.stringify(NCS.userSettings));
         },
         checkMarkChanger: function (setting, state) {
             if ($('#' + setting).hasClass('active')) {
