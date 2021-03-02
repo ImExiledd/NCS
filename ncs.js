@@ -181,16 +181,18 @@ var NCS = {
                 }
             },
             autolike: setInterval(function () {
-                var count = (typeof count ==="undefined") ? 0 : count
-                count++;
-                var position = (typeof position === "undefined") ? API.queue.getPosition() : position
-                if (count >5){
-                    position=API.queue.getPosition()
-                    count =0
-                }
                 if (NCS.userSettings.autoLike) {
                     if (!$('.btn-upvote').hasClass('active')) {
-                        $('.btn-upvote')[0].click();
+                        var count = (typeof count === "undefined") ? 0 : count
+                        count++;
+                        var position = (typeof position === "undefined") ? API.queue.getPosition() : position
+                        if (count > 5) {
+                            position = API.queue.getPosition()
+                            count = 0
+                        }
+                        if (position != 0) {
+                            $('.btn-upvote')[0].click();
+                        }
                     }
                 }
             }, 2500)
@@ -246,22 +248,22 @@ var NCS = {
                     currentTheme: null,
                     */
             if (NCS.userSettings.autoLike) {
-                NCS.funct.checkMarkChanger('autoLike',true);
+                NCS.funct.checkMarkChanger('autoLike', true);
             } else {
-                NCS.funct.checkMarkChanger('autoLike',false)
+                NCS.funct.checkMarkChanger('autoLike', false)
             }
             if (NCS.userSettings.autoJoin) {
                 NCS.funct.checkMarkChanger('autoJoin', true);
             } else {
-                NCS.funct.checkMarkChanger('autoJoin',false);
+                NCS.funct.checkMarkChanger('autoJoin', false);
             }
             if (NCS.userSettings.eta) {
-                NCS.funct.checkMarkChanger('eta',true);
+                NCS.funct.checkMarkChanger('eta', true);
             } else {
-                NCS.funct.checkMarkChanger('eta',false);
+                NCS.funct.checkMarkChanger('eta', false);
             }
             if (NCS.userSettings.currentTheme) {
-                NCS.funct.checkMarkChanger('customBackground',true);
+                NCS.funct.checkMarkChanger('customBackground', true);
                 NCS.funct.setTheme(NCS.userSettings.currentTheme)
             }
             if (NCS.userSettings.hideChat) {
@@ -280,7 +282,7 @@ var NCS = {
         checkMarkChanger: function (setting, state) {
             if ($('#' + setting).hasClass('active')) {
                 $('#' + setting).removeClass('active');
-            } else if (typeof state ==="undefined" || state) {
+            } else if (typeof state === "undefined" || state) {
                 $('#' + setting).addClass('active');
             }
         },
