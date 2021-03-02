@@ -35,7 +35,7 @@ var NCS = {
         moderatorSongAlert: false,
         currentTheme: null,
         hideChat: false,
-        desktopnotif:false,
+        desktopnotif: false,
     }, (JSON.parse(window.localStorage.getItem('ncs2-settings')) || {})),
     settings: {
         version: "2.0.0",
@@ -153,20 +153,23 @@ var NCS = {
             },
             eta: setInterval(function () {
                 var position = API.queue.getPosition();
-                position = (position < 0) ? API.queue.getDJs().length : position - 1;
-                var eta = ~~((position * (3.5 * 60)) + API.room.getTimeRemaining());
+                if (NCS.userSettings.eta) {
+                    position = (position < 0) ? API.queue.getDJs().length : position - 1;
+                    var eta = ~~((position * (3.5 * 60)) + API.room.getTimeRemaining());
+
+                    if (NCS.userSettings.eta) {
+                        // true
+                        if (API.queue.getPosition() === 0) {
+                            $('.btn-join').attr('data-eta', "You're the DJ!");
+                        } else {
+                            $('.btn-join').attr('data-eta', NCS.funct.intervals.readableEta(eta));
+                        }
+                    } else {
+                        $('btn-join').removeAttr('data-eta');
+                    }
+                }
                 if (position == -1 && NCS.userSettings.autoJoin) {
                     NCS.funct.intervals.autojoin();
-                }
-                if (NCS.userSettings.eta) {
-                    // true
-                    if (API.queue.getPosition() === 0) {
-                        $('.btn-join').attr('data-eta', "You're the DJ!");
-                    } else {
-                        $('.btn-join').attr('data-eta', NCS.funct.intervals.readableEta(eta));
-                    }
-                } else {
-                    $('btn-join').removeAttr('data-eta');
                 }
             }, 1000),
             autojoin: function () {
@@ -177,21 +180,21 @@ var NCS = {
                     return;
                 }
             },
-            autolike: setInterval(function(){
-                if (NCS.settings.autolike){
+            autolike: setInterval(function () {
+                if (NCS.settings.autoLike) {
                     if (!('.btn-upvote').hasClass('active')) {
                         $('.btn-upvote').click();
                     }
                 }
-            },1000)
+            }, 1000)
         },
-        hideChat: function(state){
-            if (typeof state === "undefined"){
-            NCS.funct.settingChanger('hideChat');
+        hideChat: function (state) {
+            if (typeof state === "undefined") {
+                NCS.funct.settingChanger('hideChat');
             }
             NCS.funct.checkMarkChanger('hideChat');
             console.log("Run HideChat");
-            if(NCS.userSettings.hideChat === false) {
+            if (NCS.userSettings.hideChat === false) {
                 console.log("Showing Chat");
                 $('#app-right').css('visibility', 'visible');
                 $('#chat').css('visibility', 'visible');
@@ -236,25 +239,25 @@ var NCS = {
                     currentTheme: null,
                     */
             if (NCS.userSettings.autoLike) {
-                NCS.funct.checkMarkChanger('autoLike');
+                NCS.funct.checkMarkChanger('autoLike',true);
             } else {
-                NCS.funct.checkMarkChanger('autoLike', false)
+                NCS.funct.checkMarkChanger('autoLike',false)
             }
             if (NCS.userSettings.autoJoin) {
-                NCS.funct.checkMarkChanger('autoJoin');
+                NCS.funct.checkMarkChanger('autoJoin', true);
             } else {
-                NCS.funct.checkMarkChanger('autoJoin', false);
+                NCS.funct.checkMarkChanger('autoJoin',false);
             }
             if (NCS.userSettings.eta) {
-                NCS.funct.checkMarkChanger('eta');
+                NCS.funct.checkMarkChanger('eta',true);
             } else {
-                NCS.funct.checkMarkChanger('eta');
+                NCS.funct.checkMarkChanger('eta',false);
             }
             if (NCS.userSettings.currentTheme) {
-                NCS.funct.checkMarkChanger('customBackground');
+                NCS.funct.checkMarkChanger('customBackground',true);
                 NCS.funct.setTheme(NCS.userSettings.currentTheme)
             }
-            if (NCS.userSettings.hideChat){
+            if (NCS.userSettings.hideChat) {
                 NCS.funct.hideChat(true);
             }
         },
@@ -270,7 +273,7 @@ var NCS = {
         checkMarkChanger: function (setting, state) {
             if ($('#' + setting).hasClass('active')) {
                 $('#' + setting).removeClass('active');
-            } else if (!state) {
+            } else if (typeof state ==="undefined" || state) {
                 $('#' + setting).addClass('active');
             }
         },
@@ -278,9 +281,9 @@ var NCS = {
 
 
 
-        desktopNotification(message){
-            if (NCS.userSettings.desktopNotification){
-                API.util.desktopnotif.showNotification("NCS",message)
+        desktopNotification(message) {
+            if (NCS.userSettings.desktopNotification) {
+                API.util.desktopnotif.showNotification("NCS", message)
             }
         },
         chatMsg: function (message, classname) {
