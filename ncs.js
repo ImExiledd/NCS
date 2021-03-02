@@ -182,15 +182,18 @@ var NCS = {
             },
             autolike: setInterval(function () {
                 if (NCS.userSettings.autoLike) {
-                    if (!$('.btn-upvote').hasClass('active')) {
-                        var count = (typeof count === "undefined") ? 0 : count
-                        count++;
-                        var position = (typeof position === "undefined") ? API.queue.getPosition() : position
-                        if (count > 5) {
-                            position = API.queue.getPosition()
-                            count = 0
-                        }
-                        if (position != 0) {
+                    var count = (typeof count === "undefined") ? 0 : count
+                    count++;
+                    var position = (typeof position === "undefined") ? API.queue.getPosition() : position
+                    var lastpos = (typeof lastpos === "undefined") ? position : lastpos
+                    if (count > 5) {
+                        position = API.queue.getPosition()
+                        count = 0
+                    }
+                    if (position != lastpos) {
+                        lastpos = position //Don't want to bug it out if we switch to position 1 after dj.
+                        if (position != 0 && !$('.btn-upvote').hasClass('active')) {
+
                             $('.btn-upvote')[0].click();
                         }
                     }
