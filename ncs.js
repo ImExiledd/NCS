@@ -34,6 +34,8 @@ var NCS = {
         customThemeEnabled: false,
         moderatorSongAlert: false,
         currentTheme: null,
+        hideChat: false,
+        desktopnotif:false,
     }, (JSON.parse(window.localStorage.getItem('ncs2-settings')) || {})),
     settings: {
         version: "2.0.0",
@@ -106,7 +108,7 @@ var NCS = {
                         <div id='mqp-halloween-theme' class=item mqp-halloween' onclick='NCS.funct.setTheme("halloween");'>Halloween</div>
                         <div id='mqp-ncs-classic-theme' class=item mqp-ncs-classic' onclick='NCS.funct.setTheme("ncs-classic");'>NCS Classic</div>
                         <div id="header-personalization" class="header">Personalization</div>
-                        <div id="desktop-notifs" class="item desktop-notifs" onclick='toggleDesktopNotifications();'>Desktop Notifications</div>
+                        <div id="desktopnotif" class="item desktop-notifs" onclick='NCS.funct.settingChanger('desktopnotif')>Desktop Notifications</div>
                         <div id="custom-background" class="item custom-background">Custom Background</div>
                         <div id="custom-mention-sounds" class="item custom-mention-sounds">Custom Mention Sounds</div>
                         <div id="eta" class="item eta" onclick='NCS.funct.settingChanger('eta')'>ETA</div>
@@ -117,7 +119,7 @@ var NCS = {
                         <div id="custom-background-edit" class="item editable custom-background">Custom Background</div>
                         <div id="custom-mention-sounds" class="item editable custom-mention-sounds">Custom Mention Sounds</div>
                         <div id="header-miscellaneous" class="header">Miscellaneous</div>
-                        <div id="hideChat" class="item hideChat" onclick="hideChat();">Hide Chat</div>
+                        <div id="hideChat" class="item hideChat" onclick="NCS.funct.hideChat();">Hide Chat</div>
                     </div>
                 </div>`
             };
@@ -174,6 +176,45 @@ var NCS = {
                 }
             }
         },
+        hideChat: function(state){
+            if (typeof state === "undefined"){
+            NCS.funct.settingChanger('hideChat');
+            }
+            NCS.funct.checkMarkChanger('hideChat');
+            console.log("Run HideChat");
+            if(NCS.userSettings.hideChat === false) {
+                console.log("Showing Chat");
+                $('#app-right').css('visibility', 'visible');
+                $('#chat').css('visibility', 'visible');
+                $('.playback').removeClass('centerPlayer');
+                $('#ShowChatBtnCtrl').remove();
+                $('.logo-menu').removeClass('NCSlogo-menu-width');
+                $('.btn-chat').removeClass('disabled');
+                $('.btn-people').removeClass('disabled');
+                $('.btn-waitlist').removeClass('disabled');
+                $('.ncs-tab').removeClass('disabled');
+                $('#StandWithKeem').removeClass('StandWithKeemCenter');
+                $('#KeemText').removeClass('KeemTextCenter');
+            } else {
+                console.log("Hiding Chat")
+                $('#app-right').css('visibility', 'hidden');
+                $('#chat').css('visibility', 'hidden');
+                $('.playback').addClass('centerPlayer');
+                $('#NCSMenu').css('visibility', 'visible');
+                $('.controls').append('<div id="ShowChatBtnCtrl" class="ctrl NCSBtnHover" onclick="NCS.funct.hideChat();">Show Chat</div>');
+                $('.logo-menu').addClass('NCSlogo-menu-width');
+                $('.btn-chat').addClass('disabled');
+                $('.btn-people').addClass('disabled');
+                $('.btn-waitlist').addClass('disabled');
+                $('.ncs-tab').addClass('disabled');
+                $('#StandWithKeem').addClass('StandWithKeemCenter');
+                $('#KeemText').addClass('KeemTextCenter');
+            }
+        },
+
+
+
+
         checkMarkSetting: function () {
             /*
                     autoLike: false,
@@ -204,6 +245,9 @@ var NCS = {
                 NCS.funct.checkMarkChanger('customBackground');
                 NCS.funct.setTheme(NCS.userSettings.currentTheme)
             }
+            if (NCS.userSettings.hideChat){
+                NCS.funct.hideChat(true);
+            }
         },
         settingChanger: function (setting, state) {
             if (typeof state === "undefined") {
@@ -218,6 +262,15 @@ var NCS = {
                 $('#' + setting).removeClass('active');
             } else if (!state) {
                 $('#' + setting).addClass('active');
+            }
+        },
+
+
+
+
+        desktopNotification(message){
+            if (NCS.userSettings.desktopNotification){
+                API.util.desktopnotif.showNotification("NCS",message)
             }
         },
         chatMsg: function (message, classname) {
@@ -237,6 +290,7 @@ var NCS = {
                 </svg>\
                 <div class="text"><span class="umsg">' + message + '</span></div>\
             </div>');
+            NCS.funct.desktopNotification(message)
         },
         previousThemeName: null,
         loadCount: (typeof loadCount === "undefined") ? 0 : this.funct.loadCount,
