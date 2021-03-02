@@ -101,7 +101,7 @@ var NCS = {
                         <div id="header-general" class="header">General Functionality</div>
                         <div id="autoLike" class="item auto-like">AutoLike</div>
                         <div id="autoJoin" class="item auto-join" onclick='NCS.funct.settingChanger('autoJoin')'>AutoJoin DJ Queue</div>
-                        <div id="afk-responder" class="item afk-responder">AFK Responder</div>
+                        <div id="afk-responder" class="item afk-responder">WIP AFK Responder</div>
                         <div id="header-themes" class="header">Themes</div>
                         <div id='custom-theme' class='item mqp-rcs' onclick='NCS.funct.setTheme("rcs");'>RCS Theme Revived</div>
                         <div id='mqp-tiki-theme' class=item mqp-tiki' onclick='NCS.funct.setTheme("tiki");'>Tiki</div>
@@ -109,15 +109,15 @@ var NCS = {
                         <div id='mqp-ncs-classic-theme' class=item mqp-ncs-classic' onclick='NCS.funct.setTheme("ncs-classic");'>NCS Classic</div>
                         <div id="header-personalization" class="header">Personalization</div>
                         <div id="desktopnotif" class="item desktop-notifs" onclick='NCS.funct.settingChanger('desktopnotif')>Desktop Notifications</div>
-                        <div id="custom-background" class="item custom-background">Custom Background</div>
-                        <div id="custom-mention-sounds" class="item custom-mention-sounds">Custom Mention Sounds</div>
+                        <div id="custom-background" class="item custom-background">WIP Custom Background</div>
+                        <div id="custom-mention-sounds" class="item custom-mention-sounds">WIP Custom Mention Sounds</div>
                         <div id="eta" class="item eta" onclick='NCS.funct.settingChanger('eta')'>ETA</div>
                         <div id="header-moderation" class="header">Moderation</div>
                         <div id="moderatorSongDurationAlert" class="item eta">Song Duration Alert</div>
                         <div id="header-edit-stuff" class="header">Edit your Settings</div>
-                        <div id="afk-message" class="item editable afk-message">Edit AFK Message</div>
-                        <div id="custom-background-edit" class="item editable custom-background">Custom Background</div>
-                        <div id="custom-mention-sounds" class="item editable custom-mention-sounds">Custom Mention Sounds</div>
+                        <div id="afk-message" class="item editable afk-message">WIP Edit AFK Message</div>
+                        <div id="custom-background-edit" class="item editable custom-background">WIP Custom Background</div>
+                        <div id="custom-mention-sounds" class="item editable custom-mention-sounds">WIP Custom Mention Sounds</div>
                         <div id="header-miscellaneous" class="header">Miscellaneous</div>
                         <div id="hideChat" class="item hideChat" onclick="NCS.funct.hideChat();">Hide Chat</div>
                     </div>
