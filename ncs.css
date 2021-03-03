@@ -43,6 +43,7 @@
 }
 
 .mdi-account-multiple-outline {
+    display: none;
     visibility: hidden;
 }
 
