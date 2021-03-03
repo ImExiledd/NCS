@@ -299,7 +299,7 @@ var NCS = {
                 API.util.desktopnotif.showNotification("NCS", message)
             }
         },
-        chatMsg: function (message, classname) {
+        chatMsg: function (message, classname, desktopVar = true) {
             var dt = new Date();
             var time = dt.getHours() + ":" + dt.getMinutes();
             $('#messages').append('\
@@ -316,10 +316,10 @@ var NCS = {
                 </svg>\
                 <div class="text"><span class="umsg">' + message + '</span></div>\
             </div>');
+            if (desktopVar){
             NCS.funct.desktopNotification(message)
+            }
         },
-        previousThemeName: null,
-        loadCount: (typeof loadCount === "undefined") ? 0 : this.funct.loadCount,
         setTheme: function (themeName) {
             var themeURI = "https://get.imexile.moe/NCS/themes/" + themeName + ".css";
             $('#NCSTheme').remove();
