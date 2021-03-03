@@ -299,7 +299,7 @@ var NCS = {
                 API.util.desktopnotif.showNotification("NCS", message)
             }
         },
-        chatMsg: function (message, classname, desktopVar = true) {
+        chatMsg: function (message, classname="NCSMSG", desktopVar = true) {
             var dt = new Date();
             var time = dt.getHours() + ":" + dt.getMinutes();
             $('#messages').append('\
