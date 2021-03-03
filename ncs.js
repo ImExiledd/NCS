@@ -37,6 +37,9 @@ var NCS = {
         hideChat: false,
         desktopnotif: false,
     }, (JSON.parse(window.localStorage.getItem('ncs2-settings')) || {})),
+    variables: {
+        loliCount: 0
+    },
     settings: {
         version: "2.0.0",
         changelog: $.getJSON("https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/changelog.json", function (json) { console.info("found changelog");/*NCS.settings.changelog= json;*/ }),
@@ -139,6 +142,10 @@ var NCS = {
             });
         }),
         intervals: {
+            loliCount: API.on('chat', function(chat) {
+                NCS.variables.loliCount += (chat.message.match(/loli/gi) || []).length;
+                $('#ncs-lc').text("Loli count: " + NCS.variables.loliCount)
+            }),
             readableEta: function (total) {
                 var hours = ~~(total / 3600);
                 var minutes = (~~(total / 60)) % 60;
