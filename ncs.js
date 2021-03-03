@@ -187,25 +187,18 @@ var NCS = {
                     return;
                 }
             },
-            autolike: setInterval(function () {
-                if (NCS.userSettings.autoLike) {
-                    var count = (typeof count === "undefined") ? 0 : count
-                    count++;
-                    var position = (typeof position === "undefined") ? API.queue.getPosition() : position
-                    var lastpos = (typeof lastpos === "undefined") ? position : lastpos
-                    if (count > 5) {
-                        position = API.queue.getPosition()
-                        count = 0
-                    }
-                    if (position != lastpos) {
-                        lastpos = position //Don't want to bug it out if we switch to position 1 after dj.
-                        if (position != 0 && !$('.btn-upvote').hasClass('active')) {
+            autolikeRunner: API.on('advance',function () {
+                NCS.funct.autolike();
+            })
+        },
+        autolike: function(){
+            if (NCS.userSettings.autoLike) {
+                var position = API.queue.getPosition()
+                    if (position != 0 && !$('.btn-upvote').hasClass('active')) {
 
-                            $('.btn-upvote')[0].click();
-                        }
+                        $('.btn-upvote')[0].click();
                     }
-                }
-            }, 2500)
+            }
         },
         hideChat: function (state) {
             if (typeof state === "undefined") {
@@ -259,6 +252,7 @@ var NCS = {
                     */
             if (NCS.userSettings.autoLike) {
                 NCS.funct.checkMarkChanger('autoLike', true);
+                NCS.funct.autolike();
             } else {
                 NCS.funct.checkMarkChanger('autoLike', false)
             }
