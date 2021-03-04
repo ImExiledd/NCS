@@ -107,7 +107,7 @@ var NCS = {
                 'back': `<div data-ng-show="(prop.c == 31)" class="ng-hide" id="ncs-back">
                     <div class="items">
                         <div id="header-general" class="header">General Functionality</div>
-                        <div id="autoLike" class="item auto-like" onclick='NCS.funct.settingChanger("autoLike");'>AutoLike</div>
+                        <div id="autoLike" class="item auto-like" onclick='NCS.funct.settingChanger("autoLike");NCS.funct.autolike();'>AutoLike</div>
                         <div id="autoJoin" class="item auto-join" onclick='NCS.funct.settingChanger("autoJoin");'>AutoJoin DJ Queue</div>
                         <div id="afkResponder" class="item afk-responder" onclick='NCS.funct.settingChanger('afkResponder')'>AFK Responder</div>
                         <div id="header-themes" class="header">Themes</div>
