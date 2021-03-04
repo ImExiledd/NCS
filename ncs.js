@@ -22,7 +22,7 @@ window.onbeforeunload = function (e) {
     // save ncs settings
     window.localStorage.setItem('ncs2-settings', JSON.stringify(NCS.userSettings));
 }
-
+try{
 var NCS = {
     // all code goes here, to prevent conflicts with Musiqpad or other scripts.
     userSettings: $.extend({
@@ -36,9 +36,14 @@ var NCS = {
         currentTheme: null,
         hideChat: false,
         desktopnotif: false,
+        afkResponder: false,
+        afkMessage:"I am currently AFK",
     }, (JSON.parse(window.localStorage.getItem('ncs2-settings')) || {})),
     variables: {
-        loliCount: 0
+        loliCount: 0,
+        previousThemeName: null,
+        loadCount: (typeof loadCount === "undefined") ? 0 : this.funct.loadCount,
+        cooldown: false,
     },
     settings: {
         version: "2.0.0",
@@ -104,7 +109,7 @@ var NCS = {
                         <div id="header-general" class="header">General Functionality</div>
                         <div id="autoLike" class="item auto-like" onclick='NCS.funct.settingChanger("autoLike");'>AutoLike</div>
                         <div id="autoJoin" class="item auto-join" onclick='NCS.funct.settingChanger("autoJoin");'>AutoJoin DJ Queue</div>
-                        <div id="afk-responder" class="item afk-responder">WIP AFK Responder</div>
+                        <div id="afkResponder" class="item afk-responder" onclick='NCS.funct.settingChanger('afkResponder')'>AFK Responder</div>
                         <div id="header-themes" class="header">Themes</div>
                         <div id='custom-theme' class='item mqp-rcs' onclick='NCS.funct.setTheme("rcs");'>RCS Theme Revived</div>
                         <div id='mqp-tiki-theme' class=item mqp-tiki' onclick='NCS.funct.setTheme("tiki");'>Tiki</div>
@@ -118,7 +123,7 @@ var NCS = {
                         <div id="header-moderation" class="header">Moderation</div>
                         <div id="moderatorSongDurationAlert" class="item eta">Song Duration Alert</div>
                         <div id="header-edit-stuff" class="header">Edit your Settings</div>
-                        <div id="afk-message" class="item editable afk-message">WIP Edit AFK Message</div>
+                        <div id="afkMessage" class="item editable afk-message" onclick="NCS.funct.modalBoxAFKResponse();">Edit AFK Message</div>
                         <div id="custom-background-edit" class="item editable custom-background">WIP Custom Background</div>
                         <div id="custom-mention-sounds" class="item editable custom-mention-sounds">WIP Custom Mention Sounds</div>
                         <div id="header-miscellaneous" class="header">Miscellaneous</div>
@@ -142,9 +147,15 @@ var NCS = {
             });
         }),
         intervals: {
-            loliCount: API.on('chat', function(chat) {
+            chatTriiger: API.on('chat',function(chat){
                 NCS.variables.loliCount += (chat.message.match(/loli/gi) || []).length;
                 $('#ncs-lc').text("Loli count: " + NCS.variables.loliCount)
+                if(NCS.userSettings.afkResponder){
+                    if (NCS.variables.cooldown === false && $('#cm-'+data.cid).hasClass('mention') === true){
+                        API.chat.send('[@'+$('#cm-'+data.cid+' .text .uname').text()+"] " + afkmsg);
+                        cooldown();
+                    }
+                }
             }),
             readableEta: function (total) {
                 var hours = ~~(total / 3600);
@@ -200,6 +211,40 @@ var NCS = {
                     }
             }
         },
+
+        modalBoxAFKResponse: function () {
+            API.util.makeCustomModal({
+                content: '<div>\
+                <h3>AFK Message</h3>\
+                <textarea rows="2" cols="100" type="text" id="afkResponse" maxlength="200" placeholder="'+NCS.userSettings.afkMessage+'"/></div>',
+                dismissable: true,
+                buttons:[
+                    {
+                        icon: 'mdi-close',
+                        classes: 'modal-no',
+                        handler: function (e){
+                            $('.modal-bg').remove();
+                        }
+                    },
+                    {
+                        icon: 'mdi-check',
+                        classes: 'modal-yes',
+                        handler: function(e){
+                            NCS.userSettings.afkMessage = $('#afkResponse').val();
+                            $('.modal-bg').remove();
+                        }
+                    },
+                    {
+                        icon: 'mdi-autorenew',
+                        classes: 'modal-yes',
+                        handler: function(e){
+                            $('#afkResponse').val(NCS.userSettings.afkMessage);
+                        }
+                    }
+                ]
+            })
+        },
+
         hideChat: function (state) {
             if (typeof state === "undefined") {
                 NCS.funct.settingChanger('hideChat');
@@ -236,6 +281,12 @@ var NCS = {
             }
         },
 
+
+
+        cooldown: function(){
+            NCS.variables.cooldown = true;
+            setTimeout(function(){NCS.variables.cooldown = false;},10000);
+        },
 
 
 
@@ -299,7 +350,7 @@ var NCS = {
                 API.util.desktopnotif.showNotification("NCS", message)
             }
         },
-        chatMsg: function (message, classname) {
+        chatMsg: function (message, classname="NCSMSG", desktopVar = true) {
             var dt = new Date();
             var time = dt.getHours() + ":" + dt.getMinutes();
             $('#messages').append('\
@@ -316,10 +367,10 @@ var NCS = {
                 </svg>\
                 <div class="text"><span class="umsg">' + message + '</span></div>\
             </div>');
+            if (desktopVar){
             NCS.funct.desktopNotification(message)
+            }
         },
-        previousThemeName: null,
-        loadCount: (typeof loadCount === "undefined") ? 0 : this.funct.loadCount,
         setTheme: function (themeName) {
             var themeURI = "https://get.imexile.moe/NCS/themes/" + themeName + ".css";
             $('#NCSTheme').remove();
@@ -359,7 +410,7 @@ var NCS = {
                 this.funct.unload;
                 return 'exit';
             } else {
-                NCS.funct.loadCount++;
+                NCS.variables.loadCount++;
                 this.sleep(2000);
                 this.waitload();
             }
@@ -400,6 +451,8 @@ var NCS = {
             font-style:italic;\
         }\
         </style>');
-
     }
-};
+};} catch(error){
+    NCS.funct.chatMsg("NCS script has errored check console for the error","NCSMSG",false);
+    console.error(error)
+}
