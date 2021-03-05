@@ -33,6 +33,7 @@ try {
             customBackgroundUri: null,
             customThemeEnabled: false,
             moderatorSongAlert: false,
+            customMentionSound:'../lib/sound/mention.wav',
             currentTheme: null,
             hideChat: false,
             desktopnotif: false,
@@ -118,14 +119,14 @@ try {
                         <div id="header-personalization" class="header">Personalization</div>
                         <div id="desktopnotif" class="item desktop-notifs" onclick='NCS.funct.settingChanger("desktopnotif");'>Desktop Notifications</div>
                         <div id="customBackground" class="item custom-background" onclick='NCS.funct.settingChanger("customBackground");NCS.funct.setCustomBackground();'>Custom Background</div>
-                        <div id="custom-mention-sounds" class="item custom-mention-sounds">WIP Custom Mention Sounds</div>
+                        <div id="customMentionSound" class="item custom-mention-sounds" onclick='NCS.funct.settingChanger("customMentionSound");'>Custom Mention Sounds</div>
                         <div id="eta" class="item eta" onclick='NCS.funct.settingChanger("eta");'>ETA</div>
                         <div id="header-moderation" class="header">Moderation</div>
-                        <div id="moderatorSongDurationAlert" class="item eta">Song Duration Alert</div>
+                        <div id="moderatorSongAlert" class="item eta" onclick='NCS.funct.settingChanger("moderatorSongAlert");'>Song Duration Alert</div>
                         <div id="header-edit-stuff" class="header">Edit your Settings</div>
                         <div id="afkMessage" class="item editable afk-message" onclick="NCS.funct.modalBoxAFKResponse();">Edit AFK Message</div>
-                        <div id="customBackgroundEdit" class="item editable custom-background" onclick="NCS.funct.modalBoxCustomBackgroundResponse()">Custom Background</div>
-                        <div id="custom-mention-sounds" class="item editable custom-mention-sounds">WIP Custom Mention Sounds</div>
+                        <div id="customBackgroundEdit" class="item editable custom-background" onclick="NCS.funct.modalBoxCustomBackgroundResponse();">Custom Background</div>
+                        <div id="customMentionSoundEdit" class="item editable custom-mention-sounds" onclick="NCS.funct.modalBoxCustomSoundResponse();">Custom Mention Sounds</div>
                         <div id="header-miscellaneous" class="header">Miscellaneous</div>
                         <div id="hideChat" class="item hideChat" onclick="NCS.funct.hideChat();">Hide Chat</div>
                     </div>
@@ -200,11 +201,28 @@ try {
                 },
                 autolikeRunner: API.on('advance', function () {
                     NCS.funct.autolike();
+                }),
+                songDurationALerty: API.on('advance', function () {
+                    if (NCS.userSettings.moderatorSongAlert) {
+                        var song = API.room.getMedia();
+                        var dj = API.queue.getDJ();
+                        if (song.duration > 360) {
+                            if ($('#notifySound').length == 0) {
+                                var audioElement = document.createElement('audio');
+                                audioElement.setAttribute('id', 'notifySound');
+                                audioElement.setAttribute('src', NCS.userSettings.customMentionSound);
+                                audioElement.setAttribute('autoplay', 'autoplay');
+                            } else {
+                                document.getElementById("notifySound").play();
+                            }
+                            NCS.funct.chatMsg("Song " + song.title + " is over 6 minutes!!!\n Currently played by: " + dj.un);
+                        }
+                    }
                 })
             },
             autolike: function () {
                 if (NCS.userSettings.autoLike) {
-                    var position = API.queue.getPosition()
+                    var position = API.queue.getPosition();
                     if (position != 0 && !$('.btn-upvote').hasClass('active')) {
 
                         $('.btn-upvote')[0].click();
@@ -323,6 +341,57 @@ try {
                 })
             },
 
+            modalBoxCustomSoundResponse: function () {
+                API.util.makeCustomModal({
+                    content: '<div>\
+                <h3>Custom Mention Sounds</h3>\
+                <img scr="'+ NCS.userSettings.customMentionSound + '"> \
+                <textarea rows="2" cols="200" type="text" id="customMentionSoundResponse" maxlength="400" placeholder="'+ NCS.userSettings.customMentionSound + '"/></div>',
+                    dismissable: true,
+                    buttons: [
+                        {
+                            icon: 'mdi-close',
+                            classes: 'modal-no',
+                            handler: function (e) {
+                                $('.modal-bg').remove();
+                            }
+                        },
+                        {
+                            icon: 'mdi-check',
+                            classes: 'modal-yes',
+                            handler: function (e) {
+                                NCS.funct.settingChanger('customBackgroundUri', $('#customMentionSoundResponse').val())
+                                NCS.funct.setCustomBackground();
+                                $('.modal-bg').remove();
+                            }
+                        },
+                        {
+                            icon: 'mdi-autorenew',
+                            classes: 'modal-yes',
+                            handler: function (e) {
+                                $('#customMentionSoundResponse').val(NCS.userSettings.customMentionSound);
+                            }
+                        },
+                        {
+                            icon: 'mdi-delete',
+                            classes: 'modal-yes',
+                            handler: function (e) {
+                                API.util.makeConfirmModal({
+                                    content: "Are you sure want to reset mention sound?",
+                                    callback: function (res) {
+                                        if (res) {
+                                            NCS.funct.settingChanger('customMentionSound', '../lib/sound/mention.wav');
+                                            $('.modal-bg').remove();
+                                        };
+                                    }
+                                });
+
+                            }
+
+                        }
+                    ]
+                })
+            },
             hideChat: function (state) {
                 if (typeof state === "undefined") {
                     NCS.funct.settingChanger('hideChat');
