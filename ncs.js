@@ -124,7 +124,7 @@ var NCS = {
                         <div id="moderatorSongDurationAlert" class="item eta">Song Duration Alert</div>
                         <div id="header-edit-stuff" class="header">Edit your Settings</div>
                         <div id="afkMessage" class="item editable afk-message" onclick="NCS.funct.modalBoxAFKResponse();">Edit AFK Message</div>
-                        <div id="custom-background-edit" class="item editable custom-background">WIP Custom Background</div>
+                        <div id="customBackgroundEdit" class="item editable custom-background">WIP Custom Background</div>
                         <div id="custom-mention-sounds" class="item editable custom-mention-sounds">WIP Custom Mention Sounds</div>
                         <div id="header-miscellaneous" class="header">Miscellaneous</div>
                         <div id="hideChat" class="item hideChat" onclick="NCS.funct.hideChat();">Hide Chat</div>
@@ -172,12 +172,12 @@ var NCS = {
             eta: setInterval(function () {
                 var position = API.queue.getPosition();
                 if (NCS.userSettings.eta) {
-                    position = (position < 0) ? API.queue.getDJs().length : position - 1;
-                    var eta = ~~((position * (3.5 * 60)) + API.room.getTimeRemaining());
+                    var curposition = (position < 0) ? API.queue.getDJs().length : position - 1;
+                    var eta = ~~((curposition * (3.5 * 60)) + API.room.getTimeRemaining());
 
                     if (NCS.userSettings.eta) {
                         // true
-                        if (API.queue.getPosition() === 0) {
+                        if (position === 0) {
                             $('.btn-join').attr('data-eta', "You're the DJ!");
                         } else {
                             $('.btn-join').attr('data-eta', NCS.funct.intervals.readableEta(eta));
@@ -212,6 +212,19 @@ var NCS = {
             }
         },
 
+        setCustomBackground: function() {
+            if(NCS.userSettings.customBackground){
+                /*
+                #room-bg { /* self explanatory u noob */
+                 /*   background-image: url("https://i.imgur.com/2XhRtOk.jpg") !important;
+                  }
+                */
+               $("#room-bg").css('background-image','url("'+NCS.userSettings.customBackgroundUri+'") !important;');
+            } else {
+                NCS.funct.setTheme(NCS.userSettings.currentTheme)
+            }
+        },
+
         modalBoxAFKResponse: function () {
             API.util.makeCustomModal({
                 content: '<div>\
@@ -239,6 +252,41 @@ var NCS = {
                         classes: 'modal-yes',
                         handler: function(e){
                             $('#afkResponse').val(NCS.userSettings.afkMessage);
+                        }
+                    }
+                ]
+            })
+        },
+
+        modalBoxCustomBackgroundResponse: function () {
+            API.util.makeCustomModal({
+                content: '<div>\
+                <h3>Custom Background</h3>\
+                <img scr="'+NCS.userSettings.customBackgroundUri+'"> \
+                <textarea rows="2" cols="200" type="text" id="customBackgroundResponse" maxlength="400" placeholder="'+NCS.userSettings.customBackgroundUri+'"/></div>',
+                dismissable: true,
+                buttons:[
+                    {
+                        icon: 'mdi-close',
+                        classes: 'modal-no',
+                        handler: function (e){
+                            $('.modal-bg').remove();
+                        }
+                    },
+                    {
+                        icon: 'mdi-check',
+                        classes: 'modal-yes',
+                        handler: function(e){
+                            NCS.userSettings.customBackgroundUri = $('#customBackgroundResponse').val();
+                            NCS.funct.setCustomBackground();
+                            $('.modal-bg').remove();
+                        }
+                    },
+                    {
+                        icon: 'mdi-autorenew',
+                        classes: 'modal-yes',
+                        handler: function(e){
+                            $('#customBackgroundResponse').val(NCS.userSettings.customBackgroundUri);
                         }
                     }
                 ]
@@ -319,7 +367,7 @@ var NCS = {
             }
             if (NCS.userSettings.currentTheme) {
                 NCS.funct.checkMarkChanger('customBackground', true);
-                NCS.funct.setTheme(NCS.userSettings.currentTheme)
+                NCS.funct.setTheme(NCS.userSettings.currentTheme);
             }
             if (NCS.userSettings.hideChat) {
                 NCS.funct.hideChat(true);
