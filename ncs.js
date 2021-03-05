@@ -214,14 +214,8 @@ try {
 
             setCustomBackground: function () {
 
-                if (NCS.userSettings.customBackground) {
-                    /*
-                    #room-bg { /* self explanatory u noob */
-                    /*   background-image: url("https://i.imgur.com/2XhRtOk.jpg") !important;
-                     }
-                   */
+                if (NCS.userSettings.customBackground && NCS.userSettings.customBackgroundUri) {
                     $('#room-bg').css({ 'cssText': 'background-image:url("' + NCS.userSettings.customBackgroundUri + '") !important' });
-                    //console.debug('url("' + NCS.userSettings.customBackgroundUri + '")')
                 } else {
                     $('#room-bg').css({ 'cssText': '' });
                 }
@@ -245,7 +239,7 @@ try {
                             icon: 'mdi-check',
                             classes: 'modal-yes',
                             handler: function (e) {
-                                NCS.funct.settingChanger('afkMessage', $('#afkResponse').val())
+                                NCS.userSettings.afkMessage = $('#afkResponse').val();
                                 $('.modal-bg').remove();
                             }
                         },
