@@ -249,6 +249,23 @@ try {
                             handler: function (e) {
                                 $('#afkResponse').val(NCS.userSettings.afkMessage);
                             }
+                        },
+                        {
+                            icon: 'mdi-delete',
+                            classes: 'modal-yes',
+                            handler: function (e) {
+                                API.util.makeConfirmModal({
+                                    content: "Are you sure want to Reset AFK response?",
+                                    callback: function (res) {
+                                        if (res) {
+                                            NCS.funct.settingChanger('afkMessage', "I am currently AFK");
+                                            $('.modal-bg').remove();
+                                        };
+                                    }
+                                });
+
+                            }
+
                         }
                     ]
                 })
