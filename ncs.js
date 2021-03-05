@@ -117,14 +117,14 @@ try {
                         <div id='mqp-ncs-classic-theme' class=item mqp-ncs-classic' onclick='NCS.funct.setTheme("ncs-classic");'>NCS Classic</div>
                         <div id="header-personalization" class="header">Personalization</div>
                         <div id="desktopnotif" class="item desktop-notifs" onclick='NCS.funct.settingChanger("desktopnotif");'>Desktop Notifications</div>
-                        <div id="customBackground" class="item custom-background" onclick='NCS.funct.settingChanger("customBackground");NCS.funct.setCustomBackground();'>WIP Custom Background</div>
+                        <div id="customBackground" class="item custom-background" onclick='NCS.funct.settingChanger("customBackground");NCS.funct.setCustomBackground();'>Custom Background</div>
                         <div id="custom-mention-sounds" class="item custom-mention-sounds">WIP Custom Mention Sounds</div>
                         <div id="eta" class="item eta" onclick='NCS.funct.settingChanger("eta");'>ETA</div>
                         <div id="header-moderation" class="header">Moderation</div>
                         <div id="moderatorSongDurationAlert" class="item eta">Song Duration Alert</div>
                         <div id="header-edit-stuff" class="header">Edit your Settings</div>
                         <div id="afkMessage" class="item editable afk-message" onclick="NCS.funct.modalBoxAFKResponse();">Edit AFK Message</div>
-                        <div id="customBackgroundEdit" class="item editable custom-background" onclick="NCS.funct.modalBoxCustomBackgroundResponse()">WIP Custom Background</div>
+                        <div id="customBackgroundEdit" class="item editable custom-background" onclick="NCS.funct.modalBoxCustomBackgroundResponse()">Custom Background</div>
                         <div id="custom-mention-sounds" class="item editable custom-mention-sounds">WIP Custom Mention Sounds</div>
                         <div id="header-miscellaneous" class="header">Miscellaneous</div>
                         <div id="hideChat" class="item hideChat" onclick="NCS.funct.hideChat();">Hide Chat</div>
@@ -224,9 +224,6 @@ try {
                     //console.debug('url("' + NCS.userSettings.customBackgroundUri + '")')
                 } else {
                     $('#room-bg').css({ 'cssText': '' });
-                    if (NCS.userSettings.customThemeEnabled) {
-                        NCS.funct.setTheme(NCS.userSettings.currentTheme)
-                    }
                 }
             },
 
@@ -298,6 +295,7 @@ try {
                             icon: 'mdi-delete',
                             handler: function (e) {
                                 NCS.funct.settingChanger('customBackgroundUri', null);
+                                $('.modal-bg').remove();
                             }
 
                         }
