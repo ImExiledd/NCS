@@ -239,7 +239,7 @@ try {
                             icon: 'mdi-check',
                             classes: 'modal-yes',
                             handler: function (e) {
-                                NCS.userSettings.afkMessage = $('#afkResponse').val();
+                                NCS.funct.settingChanger('afkMessage', $('#afkResponse').val())
                                 $('.modal-bg').remove();
                             }
                         },
