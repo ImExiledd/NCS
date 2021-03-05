@@ -293,9 +293,18 @@ try {
                         },
                         {
                             icon: 'mdi-delete',
+                            classes: 'modal-yes',
                             handler: function (e) {
-                                NCS.funct.settingChanger('customBackgroundUri', null);
-                                $('.modal-bg').remove();
+                                API.util.makeConfirmModal({
+                                    content: "Are you sure want to clear custom background url?",
+                                    callback: function (res) {
+                                        if (res) {
+                                            NCS.funct.settingChanger('customBackgroundUri', null);
+                                            $('.modal-bg').remove();
+                                        };
+                                    }
+                                });
+
                             }
 
                         }
@@ -457,7 +466,7 @@ try {
                     $('#NCSTheme').remove();
                     $('#mqp-' + this.previousThemeName + '-theme').removeClass('active');
                     NCS.funct.settingChanger('customThemeEnabled', false)
-                    NCS.userSettings.currentTheme=null;
+                    NCS.userSettings.currentTheme = null;
                     NCS.funct.saveSettings();
                     return;
                 }
