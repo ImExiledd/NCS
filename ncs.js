@@ -126,7 +126,7 @@ try {
                         <div id="header-edit-stuff" class="header">Edit your Settings</div>
                         <div id="afkMessage" class="item editable afk-message" onclick="NCS.funct.modalBoxAFKResponse();">Edit AFK Message</div>
                         <div id="customBackgroundEdit" class="item editable custom-background" onclick="NCS.funct.modalBoxCustomBackgroundResponse();">Custom Background</div>
-                        <div id="customMentionSoundEdit" class="item editable custom-mention-sounds" onclick="NCS.funct.modalBoxCustomSoundResponse();">Custom Mention Sounds</div>
+                        <div id="customMentionSoundEdit" class="item editable custom-mention-sounds" onclick="NCS.funct.modalBoxCustomMentionSoundResponse();">Custom Mention Sounds</div>
                         <div id="header-miscellaneous" class="header">Miscellaneous</div>
                         <div id="hideChat" class="item hideChat" onclick="NCS.funct.hideChat();">Hide Chat</div>
                     </div>
@@ -341,7 +341,7 @@ try {
                 })
             },
 
-            modalBoxCustomSoundResponse: function () {
+            modalBoxCustomMentionSoundResponse: function () {
                 API.util.makeCustomModal({
                     content: '<div>\
                 <h3>Custom Mention Sounds</h3>\
@@ -459,6 +459,12 @@ try {
                     NCS.funct.checkMarkChanger('autoJoin', true);
                 } else {
                     NCS.funct.checkMarkChanger('autoJoin', false);
+                }
+
+                if (NCS.userSettings.afkResponder){
+                    NCS.funct.checkMarkChanger('afkResponder',true);
+                } else {
+                    NCS.funct.checkMarkChanger('afkResponder',false)
                 }
 
                 if (NCS.userSettings.eta) {
