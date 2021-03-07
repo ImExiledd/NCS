@@ -152,9 +152,9 @@ try {
                     NCS.variables.loliCount += (chat.message.match(/loli/gi) || []).length;
                     $('#ncs-lc').text("Loli count: " + NCS.variables.loliCount)
                     if (NCS.userSettings.afkResponder) {
-                        if (NCS.variables.cooldown === false && $('#cm-' + data.cid).hasClass('mention') === true) {
-                            API.chat.send('[@' + $('#cm-' + data.cid + ' .text .uname').text() + "] " + afkmsg);
-                            cooldown();
+                        if (NCS.variables.cooldown === false && $('#cm-' + chat.cid).hasClass('mention') === true) {
+                            API.chat.send('@' + $('#cm-' + chat.cid + ' .text .uname').text() + " " + NCS.userSettings.afkMessage);
+                            NCS.funct.cooldown();
                         }
                     }
                 }),
