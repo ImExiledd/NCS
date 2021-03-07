@@ -110,7 +110,7 @@ try {
                         <div id="header-general" class="header">General Functionality</div>
                         <div id="autoLike" class="item auto-like" onclick='NCS.funct.settingChanger("autoLike");NCS.funct.autolike();'>AutoLike</div>
                         <div id="autoJoin" class="item auto-join" onclick='NCS.funct.settingChanger("autoJoin");'>AutoJoin DJ Queue</div>
-                        <div id="afkResponder" class="item afk-responder" onclick='NCS.funct.settingChanger('afkResponder')'>AFK Responder</div>
+                        <div id="afkResponder" class="item afk-responder" onclick='NCS.funct.settingChanger("afkResponder");'>AFK Responder</div>
                         <div id="header-themes" class="header">Themes</div>
                         <div id='mqp-rcs-theme' class='item mqp-rcs' onclick='NCS.funct.setTheme("rcs");'>RCS Theme Revived</div>
                         <div id='mqp-tiki-theme' class=item mqp-tiki' onclick='NCS.funct.setTheme("tiki");'>Tiki</div>
