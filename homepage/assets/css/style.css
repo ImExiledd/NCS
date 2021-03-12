@@ -1,0 +1,63 @@
+/*
+*
+*   NCS and its homepage are Copyright (C) Exile, 2021
+*   and licenced under the MIT license. You are free to modify
+*   and reuse our code, so long as this original credit is at the
+*   top of each file containing our code.
+*   
+*   If you are viewing this from an alternate website, you can find our
+*   main project at https://imexile.moe/NCS/
+*
+*
+*   Thank you for supporting our project and community, we love you all <3
+*
+*/
+
+* {
+    color: whitesmoke !important;
+}
+
+body {
+    background: rgba(22, 22, 21, 1);
+    color: whitesmoke;
+}
+header, nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+li {
+    color: whitesmoke !important;
+}
+
+.disabled {
+    color: darkgray !important;
+}
+
+.nav-item:hover,.nav-link:hover {
+    color: rgba(214, 26, 12, 1) !important;
+}
+
+.container {
+    height: 50% !important;
+}
+
+#main {
+    text-align: center;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.hidden {
+    display: none;
+}

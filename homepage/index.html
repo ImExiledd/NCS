@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Welcome home &#128151; | NCS</title>
+    <link rel=stylesheet href="assets/bootstrap/css/bootstrap.min.css" />
+    <link rel=stylesheet href="assets/css/style.css" />
+</head>
+
+<body>
+    <header class="">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">NCS</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Features</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Install</a>
+                  </li>
+                </ul>
+                <span id="version" class="d-flex">Version: 0.0.0</span>
+              </div>
+            </div>
+          </nav>
+    </header>
+    <div class="content container">
+        <span><h1>.</h1></span> <!-- This line is basically a spacer-->
+        <div id="main" class="position-absolute top-50 start-50 translate-middle">
+            <h1 class="fs-1">NCS</h1>
+            <span class="italic fs-4">Welcome home!</span>
+            <hr>
+                <!-- Description of NCS -->
+                <div class="description fs-5">
+                    Welcome to NCS, the replacement to RCS for Musiqpad, coming soon.
+                </div>
+            <br>
+            <button class="btn btn-primary disabled">Install</button>
+            <button class="btn btn-secondary" onclick="showElement('#about')">Learn more</button>
+            <div id="about" class="">
+                <hr>
+                <span class="fs-2">About us</span><br>
+                <span class="fs-5">We originally created NCS back in 2015, after <a href="#" target=_blank>plug.dj</a> shut down abruptly, effectively killing off entire communities. Some people stepped up to the plate, and created many alternative platforms. The most notable of which being <a href="#" target=_blank>musiqpad</a>, a full replacement for plug.dj, as many others were, with one major difference. This was open source.</span>
+                <br>
+                <span class="fs-4 italic">Why come back now?</span>
+                <br>
+                <span class="fs-5">NCS is being rewritten and revived now due to this years shutdown of <a href="#" target=_blank>plug.dj</a>. I originally began rewritting it when plug's domain stopped functioning without additional information. All signs pointed to the site being abandoned, from a lack of updates and events, to the domain no longer actually pointing to a server. I didn't want to leave our community with nowhere to be, I didn't want it to dissapear, so I opened a <a href="https://mqp.imexile.moe" target=_blank>musiqpad</a> room and begain rewriting NCS from the ground up, to once again replace RCS.</span>
+                <hr>
+            </div>
+        </div>
+        
+
+    </div>
+    <footer class="footer mt-auto py-3 bg-dark">
+        <div class="container">
+          <span class="text-muted">Copyright &copy; Exile, 2021 | Made with &#128151; using Bootstrap.</span>
+        </div>
+      </footer>
+    <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
