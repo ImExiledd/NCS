@@ -1,8 +1,8 @@
 /*
  *
  *	NCS is Copyright (C) Exile, 2021.
- *   NCS is licensed under MIT. Please give credit
- *   Where credit is due.
+ *  NCS is licensed under MIT. Please give credit
+ *  Where credit is due.
  *
  */
 // ensure jquery works
@@ -148,7 +148,7 @@ try {
                 });
             }),
             intervals: {
-                chatTriiger: API.on('chat', function (chat) {
+                chatTrigger: API.on('chat', function (chat) {
                     NCS.variables.loliCount += (chat.message.match(/loli/gi) || []).length;
                     $('#ncs-lc').text("Loli count: " + NCS.variables.loliCount)
                     if (NCS.userSettings.afkResponder) {
