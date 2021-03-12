@@ -110,7 +110,7 @@ try {
                         <div id="header-general" class="header">General Functionality</div>
                         <div id="autoLike" class="item auto-like" onclick='NCS.funct.settingChanger("autoLike");NCS.funct.autolike();'>AutoLike</div>
                         <div id="autoJoin" class="item auto-join" onclick='NCS.funct.settingChanger("autoJoin");'>AutoJoin DJ Queue</div>
-                        <div id="afkResponder" class="item afk-responder" onclick='NCS.funct.settingChanger('afkResponder')'>AFK Responder</div>
+                        <div id="afkResponder" class="item afk-responder" onclick='NCS.funct.settingChanger("afkResponder");'>AFK Responder</div>
                         <div id="header-themes" class="header">Themes</div>
                         <div id='mqp-rcs-theme' class='item mqp-rcs' onclick='NCS.funct.setTheme("rcs");'>RCS Theme Revived</div>
                         <div id='mqp-tiki-theme' class=item mqp-tiki' onclick='NCS.funct.setTheme("tiki");'>Tiki</div>
@@ -126,7 +126,7 @@ try {
                         <div id="header-edit-stuff" class="header">Edit your Settings</div>
                         <div id="afkMessage" class="item editable afk-message" onclick="NCS.funct.modalBoxAFKResponse();">Edit AFK Message</div>
                         <div id="customBackgroundEdit" class="item editable custom-background" onclick="NCS.funct.modalBoxCustomBackgroundResponse();">Custom Background</div>
-                        <div id="customMentionSoundEdit" class="item editable custom-mention-sounds" onclick="NCS.funct.modalBoxCustomSoundResponse();">Custom Mention Sounds</div>
+                        <div id="customMentionSoundEdit" class="item editable custom-mention-sounds" onclick="NCS.funct.modalBoxCustomMentionSoundResponse();">Custom Mention Sounds</div>
                         <div id="header-miscellaneous" class="header">Miscellaneous</div>
                         <div id="hideChat" class="item hideChat" onclick="NCS.funct.hideChat();">Hide Chat</div>
                     </div>
@@ -152,9 +152,9 @@ try {
                     NCS.variables.loliCount += (chat.message.match(/loli/gi) || []).length;
                     $('#ncs-lc').text("Loli count: " + NCS.variables.loliCount)
                     if (NCS.userSettings.afkResponder) {
-                        if (NCS.variables.cooldown === false && $('#cm-' + data.cid).hasClass('mention') === true) {
-                            API.chat.send('[@' + $('#cm-' + data.cid + ' .text .uname').text() + "] " + afkmsg);
-                            cooldown();
+                        if (NCS.variables.cooldown === false && $('#cm-' + chat.cid).hasClass('mention') === true) {
+                            API.chat.send('@' + $('#cm-' + chat.cid + ' .text .uname').text() + " " + NCS.userSettings.afkMessage);
+                            NCS.funct.cooldown();
                         }
                     }
                 }),
@@ -341,7 +341,7 @@ try {
                 })
             },
 
-            modalBoxCustomSoundResponse: function () {
+            modalBoxCustomMentionSoundResponse: function () {
                 API.util.makeCustomModal({
                     content: '<div>\
                 <h3>Custom Mention Sounds</h3>\
@@ -459,6 +459,12 @@ try {
                     NCS.funct.checkMarkChanger('autoJoin', true);
                 } else {
                     NCS.funct.checkMarkChanger('autoJoin', false);
+                }
+
+                if (NCS.userSettings.afkResponder){
+                    NCS.funct.checkMarkChanger('afkResponder',true);
+                } else {
+                    NCS.funct.checkMarkChanger('afkResponder',false)
                 }
 
                 if (NCS.userSettings.eta) {
