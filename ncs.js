@@ -98,7 +98,8 @@ try {
                     }
                 },
 
-            }
+            },
+            themesJson: $.getJSON("https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/themes.json")
         },
         funct: {
             addMenu: (function () {
@@ -113,10 +114,7 @@ try {
                         <div id="autoJoin" class="item auto-join" onclick='NCS.funct.settingChanger("autoJoin");'>AutoJoin DJ Queue</div>
                         <div id="afkResponder" class="item afk-responder" onclick='NCS.funct.settingChanger("afkResponder");'>AFK Responder</div>
                         <div id="header-themes" class="header">Themes</div>
-                        <div id='mqp-rcs-theme' class='item mqp-rcs' onclick='NCS.funct.setTheme("rcs");'>RCS Theme Revived</div>
-                        <div id='mqp-tiki-theme' class='item mqp-tiki' onclick='NCS.funct.setTheme("tiki");'>Tiki</div>
-                        <div id='mqp-halloween-theme' class='item mqp-halloween' onclick='NCS.funct.setTheme("halloween");'>Halloween</div>
-                        <div id='mqp-ncs-classic-theme' class='item mqp-ncs-classic' onclick='NCS.funct.setTheme("ncs-classic");'>NCS Classic</div>
+                        <div id="theme-manager" class="item" onclick='NCS.funct.themeManager()'>Theme Manager</div>
                         <div id="header-personalization" class="header">Personalization</div>
                         <div id="desktopnotif" class="item desktop-notifs" onclick='NCS.funct.settingChanger("desktopnotif");'>Desktop Notifications</div>
                         <div id="customBackground" class="item custom-background" onclick='NCS.funct.settingChanger("customBackground");NCS.funct.setCustomBackground();'>Custom Background</div>
@@ -151,12 +149,14 @@ try {
             }),
             intervals: {
                 chatTrigger: API.on('chat', function (chat) {
-                    NCS.variables.loliCount += (chat.message.match(/loli/gi) || []).length;
-                    $('#ncs-lc').text("Loli count: " + NCS.variables.loliCount)
-                    if (NCS.userSettings.afkResponder) {
-                        if (NCS.variables.cooldown === false && $('#cm-' + chat.cid).hasClass('mention') === true) {
-                            API.chat.send('@' + $('#cm-' + chat.cid + ' .text .uname').text() + " " + NCS.userSettings.afkMessage);
-                            NCS.funct.cooldown();
+                    if (NCS.userSettings.loliCount) {
+                        NCS.variables.loliCount += (chat.message.match(/loli/gi) || []).length;
+                        $('#ncs-lc').text("Loli count: " + NCS.variables.loliCount)
+                        if (NCS.userSettings.afkResponder) {
+                            if (NCS.variables.cooldown === false && $('#cm-' + chat.cid).hasClass('mention') === true) {
+                                API.chat.send('@' + $('#cm-' + chat.cid + ' .text .uname').text() + " " + NCS.userSettings.afkMessage);
+                                NCS.funct.cooldown();
+                            }
                         }
                     }
                 }),
@@ -453,7 +453,58 @@ try {
                 setTimeout(function () { NCS.variables.cooldown = false; }, 10000);
             },
 
+            themeManager: function () {
+                var construct = "<input type='text' id='NCSThemeInput' onkeyup='NCS.funct.themeSearch()' placeholder='Search for themes..'> \
+                <table id='NCSThemeManager'>\
+                  <tr class='header'> \
+                    <th style='width:40%;'>Name</th> \
+                    <th style='width:60%;'>Description</th> \
+                  </tr> \
+                  \
+                "
+                for (var theme in NCS.settings.themesJson) {
+                    construct += "<tr class='item'" + NCS.userSettings.currentTheme == theme.name ? 'active' : '' + " id='mqp-" + theme.name + "-theme' onclick='NCS.funct.setTheme(" + theme.name + ")>\
+                    <td> "+ theme.name + "</td>\
+                    <td> " + theme.description + "</td> \
+                    </tr>"
+                }
+                construct += "</table>"
 
+                API.util.makeCustomModal({
+                    content: construct,
+                    dismissable: true,
+                    buttons: [
+                        {
+                            icon: 'mdi-close',
+                            classes: 'modal-no',
+                            handler: function (e) {
+                                $('.modal-bg').remove();
+                            }
+                        }
+                    ]
+                })
+            },
+
+            themeSearch: function () {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("NCSThemeInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("NCSThemeManager");
+                tr = table.getElementsByTagName("tr");
+
+                // Loop through all table rows, and hide those who don't match the search query
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            },
 
             checkMarkSetting: function () {
                 /*
@@ -577,7 +628,10 @@ try {
                     NCS.funct.saveSettings();
                     return;
                 }
-                var themeURI = "https://get.imexile.moe/NCS/themes/" + themeName + ".css";
+                var themeobj = NCS.settings.themesJson.find(item => {
+                    return item.name == themeName
+                })
+                var themeURI = themeobj.location;
                 $('#NCSTheme').remove();
                 $('head').append("<link id='NCSTheme' rel='stylesheet' href='" + themeURI + "' />");
                 // set active
