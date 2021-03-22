@@ -483,7 +483,7 @@ try {
                                 $('.modal-bg').remove();
                             }
                         },
-                        {
+                        /*{
                             icon: 'mdi-edit',
                             classes: 'modal-yes',
                             handler: function(e){
@@ -513,7 +513,7 @@ try {
                                     ]
                                 })
                             }
-                        }
+                        }*/
                     ]
                 })
                 console.log("Running search for item class.")
