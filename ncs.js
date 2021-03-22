@@ -438,7 +438,7 @@ try {
                 } else {
                     NCS.funct.checkMarkChanger('loliCount');
                 }
-                if (!NCS.userSettings.loliCount || !state) {
+                if (!NCS.userSettings.loliCount || state === true) {
                     console.log("Hiding lolicount");
                     $('#ncs-lc').css('visibility', 'hidden');
                 } else {
