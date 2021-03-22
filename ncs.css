@@ -264,6 +264,8 @@
 #NCSThemeManager .item .mdi {
     display: none;
     color: deepskyblue;
+    width:20px;
+    height:20px;
 }
 #NCSThemeManager .item.active .mdi {
     display: inline;
