@@ -29,11 +29,12 @@ try {
             autoLike: false,
             autoJoin: false,
             eta: true,
+            loliCount: false,
             customBackground: false,
             customBackgroundUri: null,
             customThemeEnabled: false,
             moderatorSongAlert: false,
-            customMentionSound:'../lib/sound/mention.wav',
+            customMentionSound: '../lib/sound/mention.wav',
             currentTheme: null,
             hideChat: false,
             desktopnotif: false,
@@ -113,14 +114,15 @@ try {
                         <div id="afkResponder" class="item afk-responder" onclick='NCS.funct.settingChanger("afkResponder");'>AFK Responder</div>
                         <div id="header-themes" class="header">Themes</div>
                         <div id='mqp-rcs-theme' class='item mqp-rcs' onclick='NCS.funct.setTheme("rcs");'>RCS Theme Revived</div>
-                        <div id='mqp-tiki-theme' class=item mqp-tiki' onclick='NCS.funct.setTheme("tiki");'>Tiki</div>
-                        <div id='mqp-halloween-theme' class=item mqp-halloween' onclick='NCS.funct.setTheme("halloween");'>Halloween</div>
-                        <div id='mqp-ncs-classic-theme' class=item mqp-ncs-classic' onclick='NCS.funct.setTheme("ncs-classic");'>NCS Classic</div>
+                        <div id='mqp-tiki-theme' class='item mqp-tiki' onclick='NCS.funct.setTheme("tiki");'>Tiki</div>
+                        <div id='mqp-halloween-theme' class='item mqp-halloween' onclick='NCS.funct.setTheme("halloween");'>Halloween</div>
+                        <div id='mqp-ncs-classic-theme' class='item mqp-ncs-classic' onclick='NCS.funct.setTheme("ncs-classic");'>NCS Classic</div>
                         <div id="header-personalization" class="header">Personalization</div>
                         <div id="desktopnotif" class="item desktop-notifs" onclick='NCS.funct.settingChanger("desktopnotif");'>Desktop Notifications</div>
                         <div id="customBackground" class="item custom-background" onclick='NCS.funct.settingChanger("customBackground");NCS.funct.setCustomBackground();'>Custom Background</div>
                         <div id="customMentionSound" class="item custom-mention-sounds" onclick='NCS.funct.settingChanger("customMentionSound");'>Custom Mention Sounds</div>
                         <div id="eta" class="item eta" onclick='NCS.funct.settingChanger("eta");'>ETA</div>
+                        <div id="loliCount" class="item loli" onclick='NCS.funct.hideloliCount();'>Loli Count</div>
                         <div id="header-moderation" class="header">Moderation</div>
                         <div id="moderatorSongAlert" class="item eta" onclick='NCS.funct.settingChanger("moderatorSongAlert");'>Song Duration Alert</div>
                         <div id="header-edit-stuff" class="header">Edit your Settings</div>
@@ -395,10 +397,11 @@ try {
             hideChat: function (state) {
                 if (typeof state === "undefined") {
                     NCS.funct.settingChanger('hideChat');
+                } else {
+                    NCS.funct.checkMarkChanger('hideChat');
                 }
-                NCS.funct.checkMarkChanger('hideChat');
                 console.log("Run HideChat");
-                if (NCS.userSettings.hideChat === false) {
+                if (NCS.userSettings.hideChat === false || state === false) {
                     console.log("Showing Chat");
                     $('#app-right').css('visibility', 'visible');
                     $('#chat').css('visibility', 'visible');
@@ -425,6 +428,21 @@ try {
                     $('.ncs-tab').addClass('disabled');
                     $('#StandWithKeem').addClass('StandWithKeemCenter');
                     $('#KeemText').addClass('KeemTextCenter');
+                }
+            },
+
+            hideloliCount: function (state) {
+                if (typeof state === "undefined") {
+                    NCS.funct.settingChanger('loliCount');
+                } else {
+                    NCS.funct.checkMarkChanger('loliCount');
+                }
+                if (NCS.userSettings.loliCount || state) {
+                    console.log("Hiding lolicount");
+                    $('#ncs-lc').css('visibility', 'hidden');
+                } else {
+                    console.log("Showing lolicount");
+                    $('#ncs-lc').css('visibility', 'visible');
                 }
             },
 
@@ -461,10 +479,10 @@ try {
                     NCS.funct.checkMarkChanger('autoJoin', false);
                 }
 
-                if (NCS.userSettings.afkResponder){
-                    NCS.funct.checkMarkChanger('afkResponder',true);
+                if (NCS.userSettings.afkResponder) {
+                    NCS.funct.checkMarkChanger('afkResponder', true);
                 } else {
-                    NCS.funct.checkMarkChanger('afkResponder',false)
+                    NCS.funct.checkMarkChanger('afkResponder', false)
                 }
 
                 if (NCS.userSettings.eta) {
@@ -472,6 +490,9 @@ try {
                 } else {
                     NCS.funct.checkMarkChanger('eta', false);
                 }
+
+                NCS.funct.hideloliCount(NCS.userSettings.loliCount)
+
 
                 if (NCS.userSettings.currentTheme) {
                     //NCS.funct.checkMarkChanger('customBackground', true);
@@ -491,9 +512,9 @@ try {
                     NCS.funct.checkMarkChanger("customBackground", false);
                 }
 
-                if (NCS.userSettings.hideChat) {
-                    NCS.funct.hideChat(true);
-                }
+
+                NCS.funct.hideChat(NCS.userSettings.hideChat);
+
             },
             settingChanger: function (setting, state) {
                 if (typeof state === "undefined") {
