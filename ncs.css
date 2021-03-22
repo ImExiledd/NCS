@@ -263,10 +263,7 @@
 
 #NCSThemeManager .item .mdi {
     display: none;
-    float: right;
     color: deepskyblue;
-    left: 10px;
-    position: absolute;
 }
 #NCSThemeManager .item.active .mdi {
     display: inline;
