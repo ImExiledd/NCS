@@ -463,8 +463,8 @@ try {
                 "
                 NCS.settings.themesJson.forEach(theme => {
                     console.log(theme)
-                    construct += "<tr class='item'" + (NCS.userSettings.currentTheme == theme.name ? "active" : "");
-                    construct +=" id='mqp-" + theme.name + "-theme' onclick=\"NCS.funct.setTheme('" + theme.name + "');\">\
+                    construct += "<tr class='item" + (NCS.userSettings.currentTheme === theme.name ? " active" : "")+"'";
+                    construct +="id='mqp-" + theme.name + "-theme' onclick=\"NCS.funct.setTheme('" + theme.name + "');\">\
                     <td>"+ theme.name + "</td>\
                     <td>" + theme.description + "</td> \
                     </tr>";
@@ -482,9 +482,42 @@ try {
                             handler: function (e) {
                                 $('.modal-bg').remove();
                             }
+                        },
+                        {
+                            icon: 'mdi-edit',
+                            classes: 'modal-yes',
+                            handler: function(e){
+                                API.util.makeCustomModal({
+                                    content: "<input type='text' id='NCSThemeName' placeholder='name'/>\
+                                    <input type='text' id='NCSThemeDescription' placeholder='description'/>\
+                                    <input\
+                                    ",
+                                    dismissable:true,
+                                    buttons: [
+                                        {
+                                            icon: 'mdi-close',
+                                            class: 'modal-no',
+                                            handler:function(e){
+                                                $('.modal-bg').remove();
+                                            }
+                                        },
+                                        {
+                                            icon: 'mdi-check',
+                                            classes: 'modal-yes',
+                                            handler: function (e) {
+                                                NCS.funct.settingChanger('customBackgroundUri', $('#customMentionSoundResponse').val())
+                                                NCS.funct.setCustomBackground();
+                                                $('.modal-bg').remove();
+                                            }
+                                        },
+                                    ]
+                                })
+                            }
                         }
                     ]
                 })
+                console.log("Running search for item class.")
+                $("#NCSThemeManager").find(".item").prepend("<i class='mdi mdi-check'></i>");
             },
 
             themeSearch: function () {
@@ -496,10 +529,10 @@ try {
 
                 // Loop through all table rows, and hide those who don't match the search query
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[0];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1 || td.className.includes("active")) {
+                    td = tr[i].getElementsByTagName("td");
+                    if (td[0]) {
+                        txtValue = td[0].textContent || td[0].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1 || tr[i].className.includes("active")) {
                             tr[i].style.display = "";
                         } else {
                             tr[i].style.display = "none";
@@ -694,7 +727,7 @@ try {
                 delete this;
             }
             NCS.funct.addMenu();
-            $('head').append('<link rel="stylesheet" class="NCS" href="https://get.imexile.moe/NCS/ncs.css" />');
+            $('head').append('<link rel="stylesheet" class="NCS" href="https://files.toysland.pw/private/ncs.css" />');
             $('head').append('<link rel="stylesheet" id="NCSTheme" href="" />');
             $('#app-left').prepend('<span id="ncs-lc" style="display:block;">Loli count: 0</span>');
             NCS.funct.checkMarkSetting();

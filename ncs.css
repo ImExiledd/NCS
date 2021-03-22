@@ -266,7 +266,22 @@
     color: deepskyblue;
     width:20px;
     height:20px;
+    border-collapse: collapse;
+    padding: 0;
 }
+
+#NCSThemeManager .item {
+    padding: 0;
+    width: 100%;
+}
+
+#NCSThemeManager {
+    border-collapse: collapse;
+    padding: 0;
+    margin: 0;
+    border-spacing: 0px!important;
+}
+
 #NCSThemeManager .item.active .mdi {
     display: inline;
 }
