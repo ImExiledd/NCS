@@ -40,13 +40,13 @@ try {
             desktopnotif: false,
             afkResponder: false,
             afkMessage: "I am currently AFK",
+            themeArray=[],
         }, (JSON.parse(window.localStorage.getItem('ncs2-settings')) || {})),
         variables: {
             loliCount: 0,
             previousThemeName: null,
             loadCount: (typeof loadCount === "undefined") ? 0 : this.variables.loadCount,
             cooldown: false,
-            themesTagMap: {},
         },
         settings: {
             version: "2.0.0",
@@ -100,7 +100,7 @@ try {
                 },
 
             },
-            themesJson: $.getJSON("https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/themes.json", function (item) { NCS.settings.themesJson = item })
+            themesJson: $.getJSON("https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/themes.json", function (item) { NCS.settings.themesJson = item.concat(NCS.userSettings.themeArray);})
         },
         funct: {
             addMenu: (function () {
@@ -436,7 +436,7 @@ try {
                 if (typeof state === "undefined") {
                     NCS.funct.settingChanger('loliCount');
                 } else {
-                    NCS.funct.checkMarkChanger('loliCount');
+                    NCS.funct.checkMarkChanger('loliCount',state);
                 }
                 if (!NCS.userSettings.loliCount || state === true) {
                     console.log("Hiding lolicount");
@@ -483,14 +483,14 @@ try {
                                 $('.modal-bg').remove();
                             }
                         },
-                        /*{
+                        {
                             icon: 'mdi-edit',
                             classes: 'modal-yes',
                             handler: function(e){
                                 API.util.makeCustomModal({
-                                    content: "<input type='text' id='NCSThemeName' placeholder='name'/>\
-                                    <input type='text' id='NCSThemeDescription' placeholder='description'/>\
-                                    <input\
+                                    content: "<input type='text' id='NCSThemeName' placeholder='name'/><br/>\
+                                    <input type='text' id='NCSThemeDescription' placeholder='description'/><br/>\
+                                    <input type='text' id='NCSThemeLocation' placeholder='url'/>\
                                     ",
                                     dismissable:true,
                                     buttons: [
@@ -505,15 +505,27 @@ try {
                                             icon: 'mdi-check',
                                             classes: 'modal-yes',
                                             handler: function (e) {
-                                                NCS.funct.settingChanger('customBackgroundUri', $('#customMentionSoundResponse').val())
-                                                NCS.funct.setCustomBackground();
+                                                if ($("#NCSThemeName").val && $("#NCSThemeDescription").val && $("#NCSThemeLocation").val){
+                                                var object = {
+                                                    "name" : $("#NCSThemeName").val,
+                                                    "description" : $("#NCSThemeDescription").val,
+                                                    "location": $("#NCSThemeLocation").val,
+                                                }
+                                                NCS.settings.themesJson.push(object);
+                                                NCS.userSettings.themeArray.push(object);
+                                                NCS.funct.saveSettings();
                                                 $('.modal-bg').remove();
+                                            } else{
+                                                API.util.makeAlertModal({
+                                                    content:'Need to fill in all fields'
+                                                })
+                                            }
                                             }
                                         },
                                     ]
                                 })
                             }
-                        }*/
+                        }
                     ]
                 })
                 console.log("Running search for item class.")
