@@ -40,13 +40,13 @@ try {
             desktopnotif: false,
             afkResponder: false,
             afkMessage: "I am currently AFK",
-            themeArray=[],
+            themeArray=[]
         }, (JSON.parse(window.localStorage.getItem('ncs2-settings')) || {})),
         variables: {
             loliCount: 0,
             previousThemeName: null,
             loadCount: (typeof loadCount === "undefined") ? 0 : this.variables.loadCount,
-            cooldown: false,
+            cooldown: false
         },
         settings: {
             version: "2.0.0",
@@ -97,7 +97,7 @@ try {
                     "emotes": {
                         "custom_test": "https://cdn.radiant.dj/rcs/icons/test_custom.png"
                     }
-                },
+                }
 
             },
             themesJson: $.getJSON("https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/themes.json", function (item) { NCS.settings.themesJson = item.concat(NCS.userSettings.themeArray);})
