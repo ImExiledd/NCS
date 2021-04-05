@@ -40,7 +40,7 @@ try {
             desktopnotif: false,
             afkResponder: false,
             afkMessage: "I am currently AFK",
-            themeArray=[]
+            themeArray:[]
         }, (JSON.parse(window.localStorage.getItem('ncs2-settings')) || {})),
         variables: {
             loliCount: 0,
