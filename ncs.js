@@ -739,7 +739,7 @@ try {
                 delete this;
             }
             NCS.funct.addMenu();
-            $('head').append('<link rel="stylesheet" class="NCS" href="https://files.toysland.pw/private/ncs.css" />');
+            $('head').append('<link rel="stylesheet" class="NCS" href="https://cdn.jsdelivr.net/gh/ImExiledd/NCS@new/ncs.css" />');
             $('head').append('<link rel="stylesheet" id="NCSTheme" href="" />');
             $('#app-left').prepend('<span id="ncs-lc" style="display:block;">Loli count: 0</span>');
             NCS.funct.checkMarkSetting();
